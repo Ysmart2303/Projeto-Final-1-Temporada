@@ -1,0 +1,21 @@
+body {
+    background-color: #2E3350;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#bnt-login {
+    width: 100px;
+    height: 30px;
+
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+#bnt-login:hover {
+    cursor: pointer;
+}
