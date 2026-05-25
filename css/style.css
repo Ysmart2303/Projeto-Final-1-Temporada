@@ -1,10 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 :root {
-    --grade_curso : 290px
+    --grade_curso : 290px;
+    --cor_fundo : #131a28;
+    --marine_blue : #273f5c;
+    --hemlock : #7a969c;
+    --manor_blue : #bebbc5;
+    --distant_gray : #f5f7f9;
 }
 
 body {
-    background-color: #2E3350;
+    background-color: var(--cor_fundo);
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+/* cabecalho */
 
 header {
     user-select: none;
@@ -12,7 +25,7 @@ header {
 
 .menu {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
@@ -20,23 +33,35 @@ header {
     width: 100px;
     height: 30px;
 
-    border: 2px solid white;
+    background-color: var(--hemlock);
+    border: 2px solid var(--marine_blue);
     border-radius: 20px;
 
     transition: 0.3s ease;
+
+    padding-right: 0px;
+
+    position: absolute;
+    right: 10px;
+
+
 }
 
-#bnt-login:hover {
+header a {
+    transition: 0.3s ease;
+}
+
+#bnt-login:hover, header a:hover {
     cursor: pointer;
 
     transform: scale(1.1);
 }
 
-#bnt-login:active {
+#bnt-login:active, header a:active {
     transform: scale(0.9);
 }
 
-/* quadros de corsos */
+/* secao 1 cursos */
 
 .s1 {
     display: flex;
@@ -47,6 +72,8 @@ header {
     margin-bottom: 20px;
 }
 
+/* quadros de cursos */
+
 .quadro_curso {
     width: var(--grade_curso);
     height: var(--grade_curso);
@@ -54,10 +81,21 @@ header {
     background-image: url(img/grade.avif);
     
     overflow: hidden;
+
+    border: solid;
+
+    transition: 0.3s ease;
+
+    border-radius: 15px;
+}
+
+.quadro_curso:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .nome_curso {
-    background-color: rgb(160, 160, 160);
+    background-color: rgba(107, 151, 255, 0.456);
     height: 70px;
 
     display: flex;
@@ -68,6 +106,22 @@ header {
     font-size: 1.3em;
 
     user-select: none;
+}
+
+/* fundos */
+
+#ds {
+    background: url(/img/ds.jpg) center;
+    background-size: cover;
+}
+
+/* bem findo */
+
+.bem_vindo {
+    text-align: center;
+    color: white;
+
+    padding-bottom: 20px;
 }
 
 /* footer */
@@ -81,12 +135,13 @@ footer {
 
 }
 
-footer p {
+footer a {
     color: white;
     background-color: rgba(6, 205, 255, 0.548);
     border: 3px solid;
     border-radius: 20px;
     padding: 5px;
 
+    text-decoration: none;
     box-shadow: 4px 4px 15px rgb(248, 248, 248);
 }
