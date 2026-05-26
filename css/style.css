@@ -15,6 +15,12 @@
 body {
     background-color: var(--cor_fundo);
     font-family: Arial, Helvetica, sans-serif;
+
+    /* teste */
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* cabecalho */
@@ -55,6 +61,8 @@ header a {
     cursor: pointer;
 
     transform: scale(1.1);
+
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 #bnt-login:active, header a:active {
@@ -92,6 +100,12 @@ header a {
 .quadro_curso:hover {
     transform: scale(1.1);
     cursor: pointer;
+
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.quadro_curso:active {
+    transform: scale(0.9999);
 }
 
 .nome_curso {
@@ -133,15 +147,29 @@ footer {
     /* border: solid; */
     user-select: none;
 
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
-footer a {
-    color: white;
-    background-color: rgba(6, 205, 255, 0.548);
-    border: 3px solid;
+footer button {
+    color: black;
+    background-color: var(--hemlock);
+    border: 3px solid var(--marine_blue);
     border-radius: 20px;
     padding: 5px;
 
     text-decoration: none;
-    box-shadow: 4px 4px 15px rgb(248, 248, 248);
+    transition: 0.3s ease;
+}
+
+footer button:hover {
+    cursor: pointer;
+    
+    transform: scale(1.1);
+    /* box-shadow: 4px 4px 15px rgb(248, 248, 248); */
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+footer button:active {
+    transform: scale(0.9);
 }
