@@ -5,6 +5,7 @@
     --hemlock : #7a969c;
     --manor_blue : #bebbc5;
     --distant_gray : #f5f7f9;
+    --sombra : 0 0 15px rgba(0,0,0,0.4);
 }
 
 body {
@@ -19,7 +20,7 @@ body {
 
 }
 
-.credit-0 {
+.login-0 {
     text-align: center;
 
     width: 360px;
@@ -34,22 +35,24 @@ body {
 
     color: white;
 
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    box-shadow: var(--sombra);
+
+    /* border: 10px solid #f5f7f9; */
 }
 
-.credit-1 {
+.login-1 {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     
     background-color: var(--hemlock);
-    height: 350px;
+    height: 250px;
 
     border-radius: 20px;
 
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    box-shadow: var(--sombra);
 }
 
 button{
@@ -77,37 +80,28 @@ button:active {
     transform: scale(0.9);
 }
 
+input {
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
 
-
-p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.9em;
-
-    transition: 0.3s ease;
-    color: rgb(0, 0, 0);
-    padding: 5px;
+    /* color: white; */
+    font-size: 18px;
+    text-align: center;
+    box-shadow: var(--sombra);
 }
 
-p:hover {
-    transform: scale(1.1);
-
-    background-color: rgba(0, 0, 0, 0.19);
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
-
-    box-shadow: 0px, 10px;
-    border-radius: 20px;
+input::placeholder {
+    color: lightgray;
 }
 
-
-
-a {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-
-    transition: 0.3s ease;
+.nome, .senha {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-a:hover {
-    text-decoration: underline;
-    transform: scale(1.1);
+label {
+    font-size: 1.3em;
 }

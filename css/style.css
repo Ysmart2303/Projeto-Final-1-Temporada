@@ -78,6 +78,11 @@ header a {
     gap: 10px;
     
     margin-bottom: 20px;
+
+    border: 10px solid var(--manor_blue);
+    border-radius: 20px;
+
+    padding: 10px;
 }
 
 /* quadros de cursos */
@@ -109,7 +114,7 @@ header a {
 }
 
 .nome_curso {
-    background-color: rgba(107, 151, 255, 0.456);
+    background-color: rgba(164, 191, 255, 0.456);
     height: 70px;
 
     display: flex;
@@ -127,6 +132,27 @@ header a {
 #ds {
     background: url(/img/ds.jpg) center;
     background-size: cover;
+}
+
+#qm {
+    background: url(/img/letras/Q.svg) center;
+    background-size: cover;
+    background-color: green;
+}
+#sec {
+    background: url(/img/letras/S.svg) center;
+    background-size: cover;
+    background-color: rgb(122, 0, 128);
+}
+#logi {
+    background: url(/img/letras/L.svg) center;
+    background-size: cover;
+    background-color: rgb(203, 224, 14);
+}
+#tex {
+    background: url(/img/letras/T.svg) center;
+    background-size: cover;
+    background-color: rgb(8, 133, 175);
 }
 
 /* bem findo */
