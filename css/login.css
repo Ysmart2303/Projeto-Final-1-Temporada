@@ -34,13 +34,15 @@ body {
     border-radius: 20px;
 
     color: white;
-
+    
     box-shadow: var(--sombra);
-
+    
     /* border: 10px solid #f5f7f9; */
 }
 
 .login-1 {
+    margin-top: 20px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,31 +50,32 @@ body {
     gap: 40px;
     
     background-color: var(--hemlock);
-    height: 250px;
-
+    height: 300px;
+    
     border-radius: 20px;
-
+    
     box-shadow: var(--sombra);
 }
 
 button{
-
+    
     width: 100px;
     height: 30px;
-
+    
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
     border-radius: 20px;
-
+    
     transition: 0.3s ease;
-
+    
     padding-right: 0px;
-
+    
+    box-shadow: var(--sombra);
 }
 
 button:hover {
     cursor: pointer;
-
+    
     transform: scale(1.1);
 }
 
@@ -85,7 +88,7 @@ input {
     height: 30px;
     border-radius: 10px;
     border: none;
-
+    
     /* color: white; */
     font-size: 18px;
     text-align: center;
@@ -97,8 +100,9 @@ input::placeholder {
 }
 
 .nome, .senha {
-    display: flex;
+    
     flex-direction: column;
+    display: flex;
     gap: 10px;
 }
 
