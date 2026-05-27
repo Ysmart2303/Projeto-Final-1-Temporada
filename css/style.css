@@ -31,8 +31,7 @@ header {
 
 .menu {
     display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
+    /* align-items: center; */
 }
 
 #bnt-login {
@@ -55,13 +54,17 @@ header {
 
 header a {
     transition: 0.3s ease;
+
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
 
 #bnt-login:hover, header a:hover {
     cursor: pointer;
-
+    
     transform: scale(1.1);
-
+    
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -69,9 +72,21 @@ header a {
     transform: scale(0.9);
 }
 
+/* bem findo */
+
+.bem_vindo {
+    margin-top: 140px;
+
+    text-align: center;
+    color: white;
+
+    padding-bottom: 20px;
+}
 /* secao 1 cursos */
 
 .s1 {
+    /* margin-top: 50px; */
+
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -155,14 +170,7 @@ header a {
     background-color: rgb(8, 133, 175);
 }
 
-/* bem findo */
 
-.bem_vindo {
-    text-align: center;
-    color: white;
-
-    padding-bottom: 20px;
-}
 
 /* footer */
 

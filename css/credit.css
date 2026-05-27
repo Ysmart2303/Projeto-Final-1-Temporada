@@ -19,6 +19,58 @@ body {
 
 }
 
+/* cabecalho */
+
+
+
+header {
+    user-select: none;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+#bnt-voltar {
+    width: 100px;
+    height: 30px;
+
+    background-color: var(--hemlock);
+    border: 2px solid var(--marine_blue);
+    border-radius: 20px;
+
+    transition: 0.3s ease;
+
+    padding-right: 0px;
+
+    position: absolute;
+    right: 10px;
+    top: 37px;
+
+
+}
+
+header a {
+    transition: 0.3s ease;
+
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#bnt-voltar:hover, header a:hover {
+    cursor: pointer;
+
+    transform: scale(1.1);
+
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#bnt-voltar:active, header a:active {
+    transform: scale(0.9);
+}
+
 .credit-0 {
     text-align: center;
 
@@ -34,6 +86,8 @@ body {
 
     color: white;
 
+    border: 10px solid var(--distant_gray);
+
     box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
@@ -42,14 +96,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
-    
-    background-color: var(--hemlock);
-    height: 350px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 button{
@@ -84,7 +132,7 @@ p {
     font-size: 1.9em;
 
     transition: 0.3s ease;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     padding: 5px;
 }
 
