@@ -53,8 +53,6 @@ header {
     position: absolute;
     top: 37px;
     right: 10px;
-
-
 }
 
 
@@ -92,10 +90,14 @@ header a {
 .s1 {
     /* margin-top: 50px; */
 
+    background-color: var(--marine_blue);
+
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 10px;
+
+    width: auto;
     
     margin-bottom: 20px;
 
@@ -108,18 +110,19 @@ header a {
 /* quadros de cursos */
 
 .quadro {
+    margin: 20px 0 20px 0px;
     width: var(--grade_curso);
     height: var(--grade_curso);
     
-    background-image: url(img/grade.avif);
-    
     overflow: hidden;
 
-    border: solid;
+    /* border: solid; */
 
     transition: 0.3s ease;
 
     border-radius: 15px;
+
+    background-color: var(--hemlock);
 }
 
 .quadro:hover {

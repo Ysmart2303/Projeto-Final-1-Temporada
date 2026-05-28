@@ -18,6 +18,7 @@ function voltar(index) {
         creditos: "/html/creditos.html",
         login: "/html/login.html",
         esSe: "/html/escolhaSerie.html",
+        esBi: "/html/escolhaBimestre.html",
 
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
@@ -97,3 +98,5 @@ if (
 ) {
     removerPontos();
 }
+
+//mandar pros conteudos de cada curso com base nos "pontos"
