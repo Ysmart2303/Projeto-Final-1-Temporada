@@ -34,7 +34,11 @@ header {
     /* align-items: center; */
 }
 
-#bnt-login {
+/* botes */
+
+/* login/ */
+
+.bnt {
     width: 100px;
     height: 30px;
 
@@ -53,15 +57,8 @@ header {
 
 }
 
-header a {
-    transition: 0.3s ease;
 
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#bnt-login:hover, header a:hover {
+.bnt:hover, header a:hover {
     cursor: pointer;
     
     transform: scale(1.1);
@@ -69,10 +66,17 @@ header a {
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
-#bnt-login:active, header a:active {
+.bnt:active, header a:active {
     transform: scale(0.9);
 }
 
+header a {
+    transition: 0.3s ease;
+
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
 /* bem findo */
 
 .bem_vindo {
@@ -103,7 +107,7 @@ header a {
 
 /* quadros de cursos */
 
-.quadro_curso {
+.quadro {
     width: var(--grade_curso);
     height: var(--grade_curso);
     
@@ -118,14 +122,14 @@ header a {
     border-radius: 15px;
 }
 
-.quadro_curso:hover {
+.quadro:hover {
     transform: scale(1.1);
     cursor: pointer;
 
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
-.quadro_curso:active {
+.quadro:active {
     transform: scale(0.9999);
 }
 
@@ -160,7 +164,7 @@ header a {
     background-size: cover;
     background-color: rgb(122, 0, 128);
 }
-#logi {
+#log {
     background: url(/img/letras/L.svg) center;
     background-size: cover;
     background-color: rgb(203, 224, 14);

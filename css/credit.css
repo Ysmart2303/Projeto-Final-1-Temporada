@@ -32,24 +32,6 @@ header {
     align-items: center;
 }
 
-#bnt-voltar {
-    width: 100px;
-    height: 30px;
-
-    background-color: var(--hemlock);
-    border: 2px solid var(--marine_blue);
-    border-radius: 20px;
-
-    transition: 0.3s ease;
-
-    padding-right: 0px;
-
-    position: absolute;
-    right: 10px;
-    top: 37px;
-
-
-}
 
 header a {
     transition: 0.3s ease;
@@ -58,19 +40,6 @@ header a {
     left: 10px;
     top: 10px;
 }
-
-#bnt-voltar:hover, header a:hover {
-    cursor: pointer;
-
-    transform: scale(1.1);
-
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
-}
-
-#bnt-voltar:active, header a:active {
-    transform: scale(0.9);
-}
-
 .credit-0 {
     text-align: center;
 
