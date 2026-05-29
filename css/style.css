@@ -18,9 +18,12 @@ body {
 
     /* teste */
 
-    min-height: 100vh;
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
+
+    user-select: none;
 }
 
 /* cabecalho */
@@ -87,7 +90,7 @@ header a {
 }
 /* secao 1 cursos */
 
-.s1 {
+#s1 {
     /* margin-top: 50px; */
 
     background-color: var(--marine_blue);
@@ -97,9 +100,10 @@ header a {
     flex-wrap: wrap;
     gap: 10px;
 
-    width: auto;
-    
-    margin-bottom: 20px;
+    max-width: 1500px;
+
+    margin: auto;    
+    /* margin-bottom: 20px; */
 
     border: 10px solid var(--manor_blue);
     border-radius: 20px;
@@ -214,4 +218,8 @@ footer button:hover {
 
 footer button:active {
     transform: scale(0.9);
+}
+
+.hidden {
+  display: none !important;
 }

@@ -1,12 +1,36 @@
 // mostar
 
 function mostrarTela(telaId) {
-  const telas = ["s1", "s2"];
 
-  telas.forEach(id => {
-    const el = document.getElementById(id);
-    el.classList.add("hidden"); // esconde todas
-  });
+    const telas = ["s1", "bimestre", "socorro"];
 
-  document.getElementById(telaId).classList.remove("hidden"); // mostra só uma
+    telas.forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.classList.add("hidden");
+        }
+
+    });
+
+    const tela = document.getElementById(telaId);
+
+    if (tela) {
+        tela.classList.remove("hidden");
+    }
+
+    let titulo = document.getElementById("escolhaHH");
+
+    if (titulo) {
+
+        if (telaId === "bimestre") {
+            titulo.innerHTML = "Escolha o bimestre";
+        }
+
+        if (telaId === "s1") {
+            titulo.innerHTML = "Escolha a série que deseja";
+        }
+
+    }
 }

@@ -1,63 +1,100 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SERIE-MCVM</title>
+
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/escolhaBi.css">
 </head>
-    <body>
+
+<body>
+
+    <header>
+
+        <nav class="menu">
+
+            <a href="https://evaldo-comp.github.io/dsdisciplines/">
+                <img src="/img/mcvm-logo.png" alt="info" style="width: 100px;">
+            </a>
+
+            <button onclick="voltar('home')" class="bnt">
+                Voltar
+            </button>
+
+        </nav>
+
+    </header>
+
+    
+    <!-- TELA DAS SÉRIES -->
+
+    <section class="bem_vindo">
+
+       <h2 id="escolhaHH">Escolha a serie que deseja</h2>
+
+   </section>
+    
+    <section id="s1" class="">
         
-        <header>
 
-            <nav class="menu">
-                <a href="https://evaldo-comp.github.io/dsdisciplines/"><img src="/img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
-            <button onclick="voltar('home')" id="" class="bnt">Voltar</button>
-            </nav>
+        <div id="serie1" class="quadro" onclick="mostrarTela('bimestre')">
+            1º Ano
+        </div>
 
-        </header>
+        <div id="serie2" class="quadro">
+            2º Ano
+        </div>
 
-        <section class="bem_vindo">
+        <div id="serie3" class="quadro">
+            3º Ano
+        </div>
 
-            <h2>Escolha a serie que deseja</h2>
+    </section>
 
-        </section>
 
-        <section id="s1" class="s1" >
+    <!-- TELA DOS BIMESTRES -->
+    <section id="bimestre" class="hidden">
 
-            <div id="1serie" class="quadro" onclick="mostrarTela('s2')">
+        <div id="s2">
 
-                1º Ano
-
+            <div class="quadro">
+                1º Bimestre
             </div>
 
-            <div id="2serie" class="quadro" onclick="voltar()">
-
-                2º Ano
-                
+            <div class="quadro">
+                2º Bimestre
             </div>
 
-            <div id="3serie" class="quadro">
-
-                3º Ano
-
+            <div class="quadro">
+                3º Bimestre
             </div>
 
-        </section>
+            <div class="quadro">
+                4º Bimestre
+            </div>
 
-        <section id="s2" class="hidden">
-            <h1>oi</h1>
-        </section>
+        </div>
 
-        <footer>
-            
-            <button onclick="voltar('creditos')">
-                Os Vingadores - DS 2 - 2026
-            </button>  
-        </footer>
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
 
-        <script src="/script/script.js"></script>
+    </section>
 
-    </body>
+
+    <footer>
+
+        <button onclick="voltar('creditos')">
+            Os Vingadores - DS 2 - 2026
+        </button>
+
+    </footer>
+
+    <script src="/script/arquivo.js"></script>
+
+</body>
 </html>
