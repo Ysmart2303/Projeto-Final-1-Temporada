@@ -15,5 +15,14 @@
     color: white;
     font-size: 2em;
 
+    width: 200PX;
+    height: 200PX;
+
     background-color: var(--hemlock);
+}
+
+/* esconer jogos and apps */
+
+.hidden {
+  display: none !important;
 }
