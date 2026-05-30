@@ -41,9 +41,8 @@ header {
     color: white;
 }
 
-.menu {
-    display: flex;
-    /* align-items: center; */
+#siga:hover {
+    cursor: pointer;
 }
 
 /* botes */
@@ -68,7 +67,7 @@ header {
 }
 
 
-.bnt:hover, header a:hover {
+.bnt:hover {
     cursor: pointer;
     
     transform: scale(1.1);
@@ -172,7 +171,7 @@ header a {
 /* fundos */
 
 #ds {
-    background: url(/img/logos/ds.png) center;
+    background: url(/img/logos/ds2.png) center;
 
     background-size: 500px;
     background-repeat: no-repeat;
