@@ -4,7 +4,12 @@ function voltar(index) {
         home: "/html/index.html",
         creditos: "/html/creditos.html",
         login: "/html/login.html",
-        esSe: "/html/escolhaSerie.html",
+
+        esSeDS: "/html/escoSeries/escolhaSerieDS.html",
+        esSeLog: "/html/escoSeries/escolhaSerieLog.html",
+        esSeQm: "/html/escoSeries/escolhaSerieQm.html",
+        esSeSec: "/html/escoSeries/escolhaSerieSec.html",
+        esSeTex: "/html/escoSeries/escolhaSerieTex.html",
 
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
@@ -57,4 +62,8 @@ function mostrarTela(telaId) {
         }
 
     }
+}
+
+function falarnome() {
+    alert("Sistema integrado de Gestão Adêmica");
 }

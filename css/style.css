@@ -135,13 +135,16 @@ header a {
 
     border-radius: 15px;
 
-    background-color: var(--hemlock);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+
 }
 
 .quadro:hover {
     transform: scale(1.1);
     cursor: pointer;
-
+    
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -150,12 +153,15 @@ header a {
 }
 
 .nome_curso {
-    background-color: rgba(164, 191, 255, 0.456);
-    height: 70px;
-
+    background-color: rgba(205, 220, 255, 0.486);
+    height: 45px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 0 5px 0 5px;
+    border-radius: 20px 20px 0 0px;
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.3em;
@@ -166,29 +172,52 @@ header a {
 /* fundos */
 
 #ds {
-    background: url(/img/ds.jpg) center;
-    background-size: cover;
+    background: url(/img/logos/ds.png) center;
+
+    background-size: 500px;
+    background-repeat: no-repeat;
+
+    background-color: var(--hemlock);
 }
 
 #qm {
-    background: url(/img/letras/Q.svg) center;
-    background-size: cover;
-    background-color: green;
+    background: url(/img/logos/química.png) center;
+    /* background-color: green; */
+    
+    background-size: 200px;
+    background-repeat: no-repeat;
+
+    background-color: var(--hemlock);
 }
 #sec {
-    background: url(/img/letras/S.svg) center;
-    background-size: cover;
-    background-color: rgb(122, 0, 128);
+    background: url(/img/logos/secretariado.png) center;
+    /* background-color: rgb(122, 0, 128); */
+
+    background-size: 200px;
+    background-repeat: no-repeat;
+
+    background-color: var(--hemlock);
+
 }
 #log {
-    background: url(/img/letras/L.svg) center;
-    background-size: cover;
-    background-color: rgb(203, 224, 14);
+    background: url(/img/logos/logistica.png) center;
+    /* background-color: rgb(203, 224, 14); */
+
+    background-size: 200px;
+    background-repeat: no-repeat;
+
+    background-color: var(--hemlock);
+
 }
 #tex {
-    background: url(/img/letras/T.svg) center;
-    background-size: cover;
-    background-color: rgb(8, 133, 175);
+    background: url(/img/logos/textil.png) center;
+    /* background-color: rgb(8, 133, 175); */
+
+    background-size: 200px;
+    background-repeat: no-repeat;
+
+    background-color: var(--hemlock);
+
 }
 
 
