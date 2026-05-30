@@ -32,10 +32,14 @@ header {
     user-select: none;
     display: flex;
     justify-content: center;
+
+    background-color: var(--marine_blue);
+
 }
 
 #siga {
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 
     font-size: 2.3em;
     color: white;
