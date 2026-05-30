@@ -8,6 +8,7 @@
 
 #escolhaHH {
     margin-top: 100px;
+    margin-bottom: 40px;
 }
 
 #s1 {
@@ -36,13 +37,13 @@
     border: 10px solid var(--manor_blue);
     border-radius: 20px;
 
-    padding: 10px;
+    padding: 20px 10px 10px;
 }
 
 #s1, #s2 {
     width: 1000px;
     max-width: 1500px;
-    margin: auto;
+    margin: 40px auto 0;
 }
 
 .quadro {

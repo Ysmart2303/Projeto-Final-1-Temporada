@@ -219,7 +219,11 @@ header a {
 
 }
 
+/* class escondida */
 
+.hidden {
+    display: none !important;
+}
 
 /* footer */
 
@@ -227,36 +231,22 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* border: solid; */
     user-select: none;
 
     margin-top: auto;
     margin-bottom: 10px;
+
 }
 
-footer button {
-    color: black;
-    background-color: var(--hemlock);
-    border: 3px solid var(--marine_blue);
-    border-radius: 20px;
-    padding: 5px;
-
-    text-decoration: none;
+footer img {
     transition: 0.3s ease;
+    
 }
 
-footer button:hover {
+footer img:hover {
     cursor: pointer;
     
-    transform: scale(1.1);
-    /* box-shadow: 4px 4px 15px rgb(248, 248, 248); */
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
-}
-
-footer button:active {
-    transform: scale(0.9);
-}
-
-.hidden {
-  display: none !important;
+    
+    transform: scale(1.1);
 }

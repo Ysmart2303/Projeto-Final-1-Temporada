@@ -49,16 +49,20 @@ function mostrarTela(telaId) {
 
         if (telaId === "bimestre") {
             titulo.innerHTML = "Escolha o bimestre";
-
+            // titulo.style.marginBottom = "20%";
+            
         } else if (telaId === "bimestre2") {
             titulo.innerHTML = "Escolha o bimestre";
-
+            // titulo.style.marginBottom = "200px";
+            
         } else if (telaId === "bimestre3") {
             titulo.innerHTML = "Escolha o bimestre";
+            // titulo.style.marginBottom = "200px";
         }
-
+        
         if (telaId === "s1") {
             titulo.innerHTML = "Escolha a série que deseja";
+            titulo.style.marginBottom = "0px";
         }
 
     }
