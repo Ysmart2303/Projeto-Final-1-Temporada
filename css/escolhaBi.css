@@ -1,5 +1,4 @@
 :root {
-    --grade_curso : 290px;
     --cor_fundo : #131a28;
     --marine_blue : #273f5c;
     --hemlock : #7a969c;
@@ -7,8 +6,21 @@
     --distant_gray : #f5f7f9;
 }
 
-#s2 {
+#s1 {
     /* margin-top: 50px; */
+
+    background-color: var(--marine_blue);
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    border: 10px solid var(--manor_blue);
+    border-radius: 20px;
+}
+
+#s2 {
 
     background-color: var(--marine_blue);
 
@@ -17,15 +29,16 @@
     flex-wrap: wrap;
     gap: 00px;
 
-    max-width: 1500px;
-
-    margin: auto;    
-    /* margin-bottom: 20px; */
-
     border: 10px solid var(--manor_blue);
     border-radius: 20px;
 
     padding: 10px;
+}
+
+#s1, #s2 {
+    width: 1000px;
+    max-width: 1500px;
+    margin: auto;
 }
 
 .quadro {
@@ -75,6 +88,8 @@
 }
 
 .butao {
+    margin-top: 20px;
+
     display: flex;
     justify-content: center;
 }

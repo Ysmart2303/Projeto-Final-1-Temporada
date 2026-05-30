@@ -2,7 +2,7 @@
 
 function mostrarTela(telaId) {
 
-    const telas = ["s1", "bimestre", "socorro"];
+    const telas = ["s1", "bimestres"];
 
     telas.forEach(id => {
 

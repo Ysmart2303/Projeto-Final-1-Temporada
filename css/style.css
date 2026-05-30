@@ -30,6 +30,15 @@ body {
 
 header {
     user-select: none;
+    display: flex;
+    justify-content: center;
+}
+
+#siga {
+    margin-top: 40px;
+
+    font-size: 2.3em;
+    color: white;
 }
 
 .menu {
@@ -81,7 +90,7 @@ header a {
 /* bem findo */
 
 .bem_vindo {
-    margin-top: 140px;
+    margin-top: 100px;
 
     text-align: center;
     color: white;

@@ -1,16 +1,3 @@
-const Bds = document.getElementById("ds");
-const Bqm = document.getElementById("qm");
-const Bsec = document.getElementById("sec");
-const Blog = document.getElementById("log");
-const Btex = document.getElementById("tex");
-
-// carregar pontos salvos
-
-let pontos =
-    JSON.parse(localStorage.getItem("pontos")) || [];
-
-// função para voltar páginas
-
 function voltar(index) {
 
     const paginas = {
@@ -18,7 +5,6 @@ function voltar(index) {
         creditos: "/html/creditos.html",
         login: "/html/login.html",
         esSe: "/html/escolhaSerie.html",
-        esBi: "/html/escolhaBimestre.html",
 
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
@@ -30,73 +16,45 @@ function voltar(index) {
     window.location.href = paginas[index];
 }
 
-// adicionar pontos
+// function mostarTela (bimestres)
 
-function adicionarPonto(curso) {
+function mostrarTela(telaId) {
 
-    pontos.push(curso);
+    const telas = ["s1", "bimestre", "bimestre2", "bimestre3"];
 
-    localStorage.setItem(
-        "pontos",
-        JSON.stringify(pontos)
-    );
+    telas.forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) {
+            el.classList.add("hidden");
+        }
+
+    });
+
+    const tela = document.getElementById(telaId);
+
+    if (tela) {
+        tela.classList.remove("hidden");
+    }
+
+    let titulo = document.getElementById("escolhaHH");
+
+    if (titulo) {
+
+        if (telaId === "bimestre") {
+            titulo.innerHTML = "Escolha o bimestre";
+
+        } else if (telaId === "bimestre2") {
+            titulo.innerHTML = "Escolha o bimestre";
+
+        } else if (telaId === "bimestre3") {
+            titulo.innerHTML = "Escolha o bimestre";
+        }
+
+        if (telaId === "s1") {
+            titulo.innerHTML = "Escolha a série que deseja";
+        }
+
+    }
 }
-
-// remover pontos
-
-function removerPontos() {
-
-    pontos = [];
-
-    localStorage.removeItem("pontos");
-}
-
-// mostrar pontos
-
-function mos() {
-    alert(pontos);
-}
-
-// eventos dos botões
-
-Bds.addEventListener("click", () => {
-    adicionarPonto("ds");
-});
-
-Bqm.addEventListener("click", () => {
-    adicionarPonto("qm");
-});
-
-Bsec.addEventListener("click", () => {
-    adicionarPonto("sec");
-});
-
-Blog.addEventListener("click", () => {
-    adicionarPonto("log");
-});
-
-Btex.addEventListener("click", () => {
-    adicionarPonto("tex");
-});
-
-// páginas que resetam os pontos
-
-const paginasReset = [
-    "login.html",
-    "creditos.html",
-    "index.html"
-];
-
-const paginaAtual = window.location.pathname;
-
-// verificar página atual
-
-if (
-    paginasReset.some(pagina =>
-        paginaAtual.includes(pagina)
-    )
-) {
-    removerPontos();
-}
-
-//mandar pros conteudos de cada curso com base nos "pontos"

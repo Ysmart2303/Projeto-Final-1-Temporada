@@ -19,9 +19,7 @@
                 <img src="/img/mcvm-logo.png" alt="info" style="width: 100px;">
             </a>
 
-            <button onclick="voltar('home')" class="bnt">
-                Voltar
-            </button>
+            <button onclick="voltar('home')" class="bnt">Voltar</button>
 
         </nav>
 
@@ -36,18 +34,18 @@
 
    </section>
     
-    <section id="s1" class="">
+    <section id="s1">
         
 
         <div id="serie1" class="quadro" onclick="mostrarTela('bimestre')">
             1º Ano
         </div>
 
-        <div id="serie2" class="quadro">
+        <div id="serie2" class="quadro" onclick="mostrarTela('bimestre2')">
             2º Ano
         </div>
 
-        <div id="serie3" class="quadro">
+        <div id="serie3" class="quadro" onclick="mostrarTela('bimestre3')">
             3º Ano
         </div>
 
@@ -85,6 +83,65 @@
 
     </section>
 
+    <section id="bimestre2" class="hidden">
+
+        <div id="s2">
+
+            <div class="quadro">
+                1º Bimestre pay
+            </div>
+
+            <div class="quadro">
+                2º Bimestre
+            </div>
+
+            <div class="quadro">
+                3º Bimestre
+            </div>
+
+            <div class="quadro">
+                4º Bimestre
+            </div>
+
+        </div>
+
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
+
+    </section>
+
+    <section id="bimestre3" class="hidden">
+
+        <div id="s2">
+
+            <div class="quadro">
+                1º Bimestre day
+            </div>
+
+            <div class="quadro">
+                2º Bimestre
+            </div>
+
+            <div class="quadro">
+                3º Bimestre
+            </div>
+
+            <div class="quadro">
+                4º Bimestre
+            </div>
+
+        </div>
+
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
+
+    </section>
 
     <footer>
 
@@ -94,7 +151,7 @@
 
     </footer>
 
-    <script src="/script/arquivo.js"></script>
+    <script src="/script/script.js"></script>
 
 </body>
 </html>
