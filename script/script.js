@@ -1,8 +1,9 @@
-const botaoBase = document.getElementById("btn-login");
+const botaoBase = document.getElementById("bnt-login");
 
 // VARIÁVEIS GLOBAIS PARA RASTREAMENTO DE NAVEGAÇÃO
 let cursoSelecionado = null;
 let anoSelecionado = null;
+let bimestreSelecionado = null;
 
 // MAPEAMENTO DE CURSOS PARA SIGLA
 const mapaCursos = {
@@ -16,47 +17,122 @@ const mapaCursos = {
 // FUNÇÃO PARA NAVEGAR PARA A PÁGINA DO BIMESTRE
 function irParaBimestre(numeroBimestre) {
     if (!cursoSelecionado || !anoSelecionado) {
-        alert("Erro: Curso ou ano não selecionado.");
+        alert("Erro: curso ou ano não selecionado.");
         return;
     }
 
-    // Mapeamento de páginas por curso e ano
+    bimestreSelecionado = numeroBimestre;
+
+    // Mapeamento de páginas por curso, ano e bimestre
     const mapaPaginas = {
         "ds": {
-            1: "/html/conteudos/conDS.html",
-            2: "/html/conteudos/conDS.html",
-            3: "/html/conteudos/conDS.html"
+            1: {
+                1: "/html/conteudos/conDS.html",
+                2: "/html/conteudos/conDS.html",
+                3: "/html/conteudos/conDS.html",
+                4: "/html/conteudos/conDS.html"
+            },
+            2: {
+                1: "/html/conteudos/conDS.html",
+                2: "/html/conteudos/conDS.html",
+                3: "/html/conteudos/conDS.html",
+                4: "/html/conteudos/conDS.html"
+            },
+            3: {
+                1: "/html/conteudos/conDS.html",
+                2: "/html/conteudos/conDS.html",
+                3: "/html/conteudos/conDS.html",
+                4: "/html/conteudos/conDS.html"
+            }
         },
         "qm": {
-            1: "/html/conteudos/conQm.html",
-            2: "/html/conteudos/conQm.html",
-            3: "/html/conteudos/conQm.html"
+            1: {
+                1: "/html/conteudos/conQm.html",
+                2: "/html/conteudos/conQm.html",
+                3: "/html/conteudos/conQm.html",
+                4: "/html/conteudos/conQm.html"
+            },
+            2: {
+                1: "/html/conteudos/conQm.html",
+                2: "/html/conteudos/conQm.html",
+                3: "/html/conteudos/conQm.html",
+                4: "/html/conteudos/conQm.html"
+            },
+            3: {
+                1: "/html/conteudos/conQm.html",
+                2: "/html/conteudos/conQm.html",
+                3: "/html/conteudos/conQm.html",
+                4: "/html/conteudos/conQm.html"
+            }
         },
         "sec": {
-            1: "/html/conteudos/conSec.html",
-            2: "/html/conteudos/conSec.html",
-            3: "/html/conteudos/conSec.html"
+            1: {
+                1: "/html/conteudos/conSec.html",
+                2: "/html/conteudos/conSec.html",
+                3: "/html/conteudos/conSec.html",
+                4: "/html/conteudos/conSec.html"
+            },
+            2: {
+                1: "/html/conteudos/conSec.html",
+                2: "/html/conteudos/conSec.html",
+                3: "/html/conteudos/conSec.html",
+                4: "/html/conteudos/conSec.html"
+            },
+            3: {
+                1: "/html/conteudos/conSec.html",
+                2: "/html/conteudos/conSec.html",
+                3: "/html/conteudos/conSec.html",
+                4: "/html/conteudos/conSec.html"
+            }
         },
         "log": {
-            1: "/html/conteudos/conLogi.html",
-            2: "/html/conteudos/conLogi.html",
-            3: "/html/conteudos/conLogi.html"
+            1: {
+                1: "/html/conteudos/conLogi.html",
+                2: "/html/conteudos/conLogi.html",
+                3: "/html/conteudos/conLogi.html",
+                4: "/html/conteudos/conLogi.html"
+            },
+            2: {
+                1: "/html/conteudos/conLogi.html",
+                2: "/html/conteudos/conLogi.html",
+                3: "/html/conteudos/conLogi.html",
+                4: "/html/conteudos/conLogi.html"
+            },
+            3: {
+                1: "/html/conteudos/conLogi.html",
+                2: "/html/conteudos/conLogi.html",
+                3: "/html/conteudos/conLogi.html",
+                4: "/html/conteudos/conLogi.html"
+            }
         },
         "tex": {
-            1: "/html/conteudos/conTex.html",
-            2: "/html/conteudos/conTex.html",
-            3: "/html/conteudos/conTex.html"
+            1: {
+                1: "/html/conteudos/conTex.html",
+                2: "/html/conteudos/conTex.html",
+                3: "/html/conteudos/conTex.html",
+                4: "/html/conteudos/conTex.html"
+            },
+            2: {
+                1: "/html/conteudos/conTex.html",
+                2: "/html/conteudos/conTex.html",
+                3: "/html/conteudos/conTex.html",
+                4: "/html/conteudos/conTex.html"
+            },
+            3: {
+                1: "/html/conteudos/conTex.html",
+                2: "/html/conteudos/conTex.html",
+                3: "/html/conteudos/conTex.html",
+                4: "/html/conteudos/conTex.html"
+            }
         }
     };
 
-    // Buscar página correspondente
-    if (mapaPaginas[cursoSelecionado] && mapaPaginas[cursoSelecionado][anoSelecionado]) {
-        // Passar informações via URL (opcional)
-        const url = mapaPaginas[cursoSelecionado][anoSelecionado] + 
-                   `?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
-        window.location.href = url;
+    const pagina = mapaPaginas[cursoSelecionado]?.[anoSelecionado]?.[numeroBimestre];
+
+    if (pagina) {
+        window.location.href = `${pagina}?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
     } else {
-        alert("Página não configurada para esta combinação.");
+        alert("Página não configurada para esta combinação de curso, ano e bimestre.");
     }
 }
 
