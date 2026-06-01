@@ -1,3 +1,5 @@
+const botaoBase = document.getElementById("btn-login");
+
 function voltar(index) {
 
     const paginas = {
@@ -6,10 +8,6 @@ function voltar(index) {
         login: "/html/login.html",
 
         esSeDS: "/html/escoSeries/escolhaSerieDS.html",
-        esSeLog: "/html/escoSeries/escolhaSerieLog.html",
-        esSeQm: "/html/escoSeries/escolhaSerieQm.html",
-        esSeSec: "/html/escoSeries/escolhaSerieSec.html",
-        esSeTex: "/html/escoSeries/escolhaSerieTex.html",
 
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
@@ -21,7 +19,8 @@ function voltar(index) {
     window.location.href = paginas[index];
 }
 
-// function mostarTela (bimestres)
+// function mostarTela (bimestres) 
+// Base de tudo
 
 function mostrarTela(telaId) {
 
@@ -43,31 +42,29 @@ function mostrarTela(telaId) {
         tela.classList.remove("hidden");
     }
 
-    let titulo = document.getElementById("escolhaBB");
-    let titulo2 = document.getElementById("escolhaHH");
+    let titulo = document.getElementById("escolhaHH");
+    let Subtitulo = document.getElementById("escolhaBB");
 
-    if (titulo && titulo2) {
+    if (telaId === "s1") {
 
-        if (
-        telaId === "bimestre" ||
-        telaId === "bimestre2" ||
-        telaId === "bimestre3"
-        ) 
-        { titulo2.innerHTML = "Escolha o bimestre"; }
-        
-        if (telaId === "s1") {
+        titulo.innerHTML = "Bem-vindo";
+        Subtitulo.innerHTML = "Escolha o curso que deseja";
 
-            titulo.innerHTML = "";
-            titulo2.innerHTML = "";
-            
-        } else if (telaId === "s2") {
-            
-            titulo2.innerHTML = "Escolha a série que deseja";
-            // titulo.style.classList.add("hidden");
-        }
+        botaoBase.textContent = "Login";
+        botaoBase.onclick = () => voltar("login");
 
+    } else if (telaId === "s2") {
+
+        titulo.innerHTML = "Escolha a série que deseja";
+        Subtitulo.innerHTML = "";
+
+
+        botaoBase.textContent = "Voltar";
+        botaoBase.onclick = () => mostrarTela("s1");
     }
 }
+
+// Falar o nome ao clicar no titulo
 
 function falarnome() {
     alert("Sistema integrado de Gestão Adêmica");

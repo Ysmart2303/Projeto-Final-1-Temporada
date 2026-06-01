@@ -11,15 +11,18 @@
 } */
 
 #s2 {
-    /* margin-top: 50px; */
 
+}
+
+.s2 {
+    
     background-color: var(--marine_blue);
-
+    
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 10px;
-
+    
     border: 10px solid var(--manor_blue);
     border-radius: 20px;
 }

@@ -8,14 +8,6 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-
-    height: 100vh;
-    user-select: none;
 
 }
 
@@ -127,4 +119,20 @@ a {
 a:hover {
     text-decoration: underline;
     transform: scale(1.1);
+}
+
+.sss {
+    height: 90vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ppp{
+    margin-top: 50px;
+    border: solid;
+    border-radius: 20px;
+
+    padding: 0 10px 0 10px;
 }

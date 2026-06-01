@@ -147,6 +147,8 @@ header a {
 .quadro:hover {
     transform: scale(1.1);
     cursor: pointer;
+
+    /* border: solid; */
     
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
