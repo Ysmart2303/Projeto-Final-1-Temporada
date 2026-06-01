@@ -1,5 +1,65 @@
 const botaoBase = document.getElementById("btn-login");
 
+// VARIÁVEIS GLOBAIS PARA RASTREAMENTO DE NAVEGAÇÃO
+let cursoSelecionado = null;
+let anoSelecionado = null;
+
+// MAPEAMENTO DE CURSOS PARA SIGLA
+const mapaCursos = {
+    "ds": "DS",
+    "qm": "Qm",
+    "sec": "Sec",
+    "log": "Logi",
+    "tex": "Tex"
+};
+
+// FUNÇÃO PARA NAVEGAR PARA A PÁGINA DO BIMESTRE
+function irParaBimestre(numeroBimestre) {
+    if (!cursoSelecionado || !anoSelecionado) {
+        alert("Erro: Curso ou ano não selecionado.");
+        return;
+    }
+
+    // Mapeamento de páginas por curso e ano
+    const mapaPaginas = {
+        "ds": {
+            1: "/html/conteudos/conDS.html",
+            2: "/html/conteudos/conDS.html",
+            3: "/html/conteudos/conDS.html"
+        },
+        "qm": {
+            1: "/html/conteudos/conQm.html",
+            2: "/html/conteudos/conQm.html",
+            3: "/html/conteudos/conQm.html"
+        },
+        "sec": {
+            1: "/html/conteudos/conSec.html",
+            2: "/html/conteudos/conSec.html",
+            3: "/html/conteudos/conSec.html"
+        },
+        "log": {
+            1: "/html/conteudos/conLogi.html",
+            2: "/html/conteudos/conLogi.html",
+            3: "/html/conteudos/conLogi.html"
+        },
+        "tex": {
+            1: "/html/conteudos/conTex.html",
+            2: "/html/conteudos/conTex.html",
+            3: "/html/conteudos/conTex.html"
+        }
+    };
+
+    // Buscar página correspondente
+    if (mapaPaginas[cursoSelecionado] && mapaPaginas[cursoSelecionado][anoSelecionado]) {
+        // Passar informações via URL (opcional)
+        const url = mapaPaginas[cursoSelecionado][anoSelecionado] + 
+                   `?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
+        window.location.href = url;
+    } else {
+        alert("Página não configurada para esta combinação.");
+    }
+}
+
 function voltar(index) {
 
     const paginas = {
@@ -58,9 +118,39 @@ function mostrarTela(telaId) {
         titulo.innerHTML = "Escolha a série que deseja";
         Subtitulo.innerHTML = "";
 
-
         botaoBase.textContent = "Voltar";
         botaoBase.onclick = () => mostrarTela("s1");
+    } else if (telaId === "ConEAtiv") {
+
+        titulo.innerHTML = "Conteúdos";
+
+    } else if (telaId === "bimestre" || telaId === "bimestre2" || telaId === "bimestre3") {
+
+        titulo.innerHTML = "Escolha o bimestre";
+        Subtitulo.innerHTML = `${cursoSelecionado?.toUpperCase()} - ${anoSelecionado}º Ano`;
+
+        botaoBase.textContent = "Voltar";
+        botaoBase.onclick = () => mostrarTela("s2");
+    }
+}
+
+// RASTREAR CURSO SELECIONADO - Adicione esta função
+function selecionarCurso(nomeCurso) {
+    cursoSelecionado = nomeCurso.toLowerCase();
+    mostrarTela("s2");
+}
+
+// RASTREAR ANO SELECIONADO - Adicione esta função
+function selecionarAno(numeroAno) {
+    anoSelecionado = numeroAno;
+    
+    // Mostrar a seção de bimestres correspondente
+    if (numeroAno === 1) {
+        mostrarTela("bimestre");
+    } else if (numeroAno === 2) {
+        mostrarTela("bimestre2");
+    } else if (numeroAno === 3) {
+        mostrarTela("bimestre3");
     }
 }
 

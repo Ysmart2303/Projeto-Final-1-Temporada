@@ -30,32 +30,32 @@
 
         <section id="s1" class="s1">
 
-            <div id="ds" class="quadro" onclick="mostrarTela('s2')">
+            <div id="ds" class="quadro" onclick="selecionarCurso('ds')">
 
                 <!-- <div class="nome_curso">Desenvolvimento de Sistemas</div> -->
                 <div class="nome_curso">DS</div>
 
             </div>
 
-            <div id="qm" class="quadro" onclick="mostrarTela('s2')">
+            <div id="qm" class="quadro" onclick="selecionarCurso('qm')">
 
                 <div class="nome_curso">Quimica</div>
                 
             </div>
 
-            <div id="sec" class="quadro" onclick="mostrarTela('s2')">
+            <div id="sec" class="quadro" onclick="selecionarCurso('sec')">
 
                 <div class="nome_curso">Secretariado</div>
                 
             </div>
 
-            <div id="log" class="quadro" onclick="mostrarTela('s2')">
+            <div id="log" class="quadro" onclick="selecionarCurso('log')">
 
                 <div class="nome_curso">Logistica</div>
                 
             </div>
 
-            <div id="tex" class="quadro" onclick="mostrarTela('s2')">
+            <div id="tex" class="quadro" onclick="selecionarCurso('tex')">
 
                 <div class="nome_curso">Textil</div>
 
@@ -69,15 +69,15 @@
         
         <div class="s2">
 
-            <div id="serie1" class="quadro2" onclick="mostrarTela('bimestre')">
+            <div id="serie1" class="quadro2" onclick="selecionarAno(1)">
                 1º Ano
             </div>
     
-            <div id="serie2" class="quadro2" onclick="mostrarTela('bimestre2')">
+            <div id="serie2" class="quadro2" onclick="selecionarAno(2)">
                 2º Ano
             </div>
     
-            <div id="serie3" class="quadro2" onclick="mostrarTela('bimestre3')">
+            <div id="serie3" class="quadro2" onclick="selecionarAno(3)">
                 3º Ano
             </div>
 
@@ -100,19 +100,19 @@
 
         <div id="sBi">
 
-            <div class="quadro2" onclick="mostrarTela('ConEAtiv')">
+            <div class="quadro2" onclick="irParaBimestre(1)">
                 1º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(2)">
                 2º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(3)">
                 3º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(4)">
                 4º Bimestre
             </div>
 
@@ -130,19 +130,19 @@
 
         <div id="sBi">
 
-            <div class="quadro2">
-                1º Bimestre pay
+            <div class="quadro2" onclick="irParaBimestre(1)">
+                1º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(2)">
                 2º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(3)">
                 3º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(4)">
                 4º Bimestre
             </div>
 
@@ -160,19 +160,19 @@
 
         <div id="sBi">
 
-            <div class="quadro2">
-                1º Bimestre day
+            <div class="quadro2" onclick="irParaBimestre(1)">
+                1º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(2)">
                 2º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(3)">
                 3º Bimestre
             </div>
 
-            <div class="quadro2">
+            <div class="quadro2" onclick="irParaBimestre(4)">
                 4º Bimestre
             </div>
 
@@ -188,7 +188,7 @@
 
     <!-- Tela dos conteudos, (deus nos protega) -->
 
-    <section id="ConEAtiv">
+    <section id="ConEAtiv" class="hidden">
 
         <section id="s1" class="">
     
@@ -231,36 +231,43 @@
     
                     
                 </div>
-                <div class="quadro2">
+                <div class="quadro3">
     
                     
                 </div>
-                <div class="quadro2">
+
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
     
                     
                 </div>
     
-            </section>
+        </section>
     
-            <!-- Atividades -->
+        <!-- Atividades -->
     
-            <section class="Atividades">
+        <section class="Att">
     
-                <h1>Atividades</h1>
+            <h1>Atividades</h1>
                 
-            </section>
+        </section>
     
-            <section id="" class="s1">
-    
-                <div class="quadro3">
-    
-    
-                </div>
-    
-                <div class="quadro3">
-    
-                    
-                </div>
+        <section id="s1" class="">
     
                 <div class="quadro3">
     
@@ -271,6 +278,7 @@
     
                     
                 </div>
+    
                 <div class="quadro3">
     
     
@@ -280,16 +288,11 @@
     
                     
                 </div>
-
                 <div class="quadro3">
     
     
                 </div>
     
-                <div class="quadro3">
-    
-                    
-                </div>
                 <div class="quadro3">
     
                     
@@ -297,10 +300,43 @@
 
                 <div class="quadro3">
     
+    
+                </div>
+    
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
+    
+                    
+                </div>
+
+                <div class="quadro3">
+    
+                    
+                </div>
+
+                <div class="quadro3">
+    
+                    
+                </div>
+
+                <div class="quadro3">
+    
+                    
+                </div>
+
+                <div class="quadro3">
+    
+                    
+                </div>
+                <div class="quadro3">
+    
                     
                 </div>
     
-            </section>
+        </section>
 
     </section>
 

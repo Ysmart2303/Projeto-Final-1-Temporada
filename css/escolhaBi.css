@@ -83,8 +83,9 @@
 
 .quadro3 {
     margin: 20px 0 20px 0px;
-    width: var(--grade_curso);
-    height: var(--grade_curso);
+
+    width: 200PX;
+    height: 200PX;
     
     overflow: hidden;
 
@@ -98,7 +99,7 @@
     justify-content: center;
     align-items: end;
 
-    background-color: #ffffff;
+    background-color: var(--hemlock);
 
 }
 
@@ -115,7 +116,13 @@
     transform: scale(0.9999);
 }
 
+/* atividades */
 
+.Att {
+    color: white;
+    margin: 20px;
+    text-align: center;
+}
 
 /* esconer jogos and apps */
 
