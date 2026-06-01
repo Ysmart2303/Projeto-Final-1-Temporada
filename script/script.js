@@ -24,7 +24,7 @@ function voltar(index) {
 
 function mostrarTela(telaId) {
 
-    const telas = ["s1", "s2", "bimestre", "bimestre2", "bimestre3"];
+    const telas = ["s1", "s2", "bimestre", "bimestre2", "bimestre3", "ConEAtiv"];
 
     telas.forEach(id => {
 

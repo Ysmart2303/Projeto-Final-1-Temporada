@@ -79,6 +79,44 @@
     transform: scale(0.9999);
 }
 
+/* quadro3 */
+
+.quadro3 {
+    margin: 20px 0 20px 0px;
+    width: var(--grade_curso);
+    height: var(--grade_curso);
+    
+    overflow: hidden;
+
+    /* border: solid; */
+
+    transition: 0.3s ease;
+
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
+
+    background-color: #ffffff;
+
+}
+
+.quadro3:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+
+    /* border: solid; */
+    
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.quadro3:active {
+    transform: scale(0.9999);
+}
+
+
+
 /* esconer jogos and apps */
 
 .hidden {
