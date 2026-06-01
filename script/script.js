@@ -1,4 +1,4 @@
-conssole.log("Só Jesus na causa")
+conssole.log("Só Jesus na causa");
 
 const botaoBase = document.getElementById("bnt-login");
 
