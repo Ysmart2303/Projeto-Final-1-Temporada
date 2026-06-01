@@ -5,61 +5,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CURSOS-MCVM</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/escolhaBi.css">
 </head>
-    <body>
+<body>
+    
+    <header>
         
-        <header>
-
-            <nav class="menu">
+        <nav class="menu">
                 <a href="https://evaldo-comp.github.io/dsdisciplines/"><img src="/img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
             <button id="bnt-login" class="bnt" onclick="voltar('login')">Login</button>
-            </nav>
+        </nav>
+        
+        <h1 id="siga"><div onclick="falarnome()">S.I.G.A. MCVM</div></h1>
+        
+    </header>
+    
+    <section class="bem_vindo">
+        
+        <h1 id="escolhaBB">Bem vindo</h1>
+        <p id="escolhaBB">Escolha o curso que deseja</p>
+        <h2 id="escolhaHH"></h2>
 
-            <h1 id="siga"><div onclick="falarnome()">S.I.G.A. MCVM</div></h1>
-
-        </header>
-
-        <section class="bem_vindo">
-
-            <h1>Bem vindo</h1>
-            <p>Escolha o curso que deseja</p>
-
-        </section>
+    </section>
 
         <section id="s1" class="s1">
 
-            <div id="ds" class="quadro" onclick="voltar('esSeDS')">
+            <div id="ds" class="quadro" onclick="mostrarTela('s2')">
 
                 <!-- <div class="nome_curso">Desenvolvimento de Sistemas</div> -->
                 <div class="nome_curso">DS</div>
 
             </div>
 
-            <div id="qm" class="quadro" onclick="voltar('esSeQm')">
+            <div id="qm" class="quadro" onclick="mostrarTela('s2')">
 
                 <div class="nome_curso">Quimica</div>
                 
             </div>
 
-            <div id="sec" class="quadro" onclick="voltar('esSeSec')">
+            <div id="sec" class="quadro" onclick="mostrarTela('s2')">
 
                 <div class="nome_curso">Secretariado</div>
                 
             </div>
 
-            <div id="log" class="quadro" onclick="voltar('esSeLog')">
+            <div id="log" class="quadro" onclick="mostrarTela('s2')">
 
                 <div class="nome_curso">Logistica</div>
                 
             </div>
 
-            <div id="tex" class="quadro" onclick="voltar('esSeTex')">
+            <div id="tex" class="quadro" onclick="mostrarTela('s2')">
 
                 <div class="nome_curso">Textil</div>
 
             </div>
 
         </section>
+
+        <!-- TELA DAS SÉRIES -->
+    
+    <section id="s2" class="hidden">
+        
+
+        <div id="serie1" class="quadro2" onclick="mostrarTela('bimestre')">
+            1º Ano
+        </div>
+
+        <div id="serie2" class="quadro2" onclick="mostrarTela('bimestre2')">
+            2º Ano
+        </div>
+
+        <div id="serie3" class="quadro2" onclick="mostrarTela('bimestre3')">
+            3º Ano
+        </div>
+
+    </section>
+
+
+    <!-- TELA DOS BIMESTRES -->
+    <section id="bimestre" class="hidden">
+
+        <div id="sBi">
+
+            <div class="quadro2">
+                1º Bimestre
+            </div>
+
+            <div class="quadro2">
+                2º Bimestre
+            </div>
+
+            <div class="quadro2">
+                3º Bimestre
+            </div>
+
+            <div class="quadro2">
+                4º Bimestre
+            </div>
+
+        </div>
+
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
+
+    </section>
+
+    <section id="bimestre2" class="hidden">
+
+        <div id="sBi">
+
+            <div class="quadro2">
+                1º Bimestre pay
+            </div>
+
+            <div class="quadro2">
+                2º Bimestre
+            </div>
+
+            <div class="quadro2">
+                3º Bimestre
+            </div>
+
+            <div class="quadro2">
+                4º Bimestre
+            </div>
+
+        </div>
+
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
+
+    </section>
+
+    <section id="bimestre3" class="hidden">
+
+        <div id="sBi">
+
+            <div class="quadro2">
+                1º Bimestre day
+            </div>
+
+            <div class="quadro2">
+                2º Bimestre
+            </div>
+
+            <div class="quadro2">
+                3º Bimestre
+            </div>
+
+            <div class="quadro2">
+                4º Bimestre
+            </div>
+
+        </div>
+
+        <div class="butao">
+            <button onclick="mostrarTela('s1')" class="bnt-serie">
+                Voltar
+            </button>
+        </div>
+
+    </section>
 
         <!-- <button onclick="mos()">itmrmn</button> -->
 

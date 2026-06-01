@@ -25,7 +25,7 @@ function voltar(index) {
 
 function mostrarTela(telaId) {
 
-    const telas = ["s1", "bimestre", "bimestre2", "bimestre3"];
+    const telas = ["s1", "s2", "bimestre", "bimestre2", "bimestre3"];
 
     telas.forEach(id => {
 
@@ -43,26 +43,27 @@ function mostrarTela(telaId) {
         tela.classList.remove("hidden");
     }
 
-    let titulo = document.getElementById("escolhaHH");
+    let titulo = document.getElementById("escolhaBB");
+    let titulo2 = document.getElementById("escolhaHH");
 
-    if (titulo) {
+    if (titulo && titulo2) {
 
-        if (telaId === "bimestre") {
-            titulo.innerHTML = "Escolha o bimestre";
-            // titulo.style.marginBottom = "20%";
-            
-        } else if (telaId === "bimestre2") {
-            titulo.innerHTML = "Escolha o bimestre";
-            // titulo.style.marginBottom = "200px";
-            
-        } else if (telaId === "bimestre3") {
-            titulo.innerHTML = "Escolha o bimestre";
-            // titulo.style.marginBottom = "200px";
-        }
+        if (
+        telaId === "bimestre" ||
+        telaId === "bimestre2" ||
+        telaId === "bimestre3"
+        ) 
+        { titulo2.innerHTML = "Escolha o bimestre"; }
         
         if (telaId === "s1") {
-            titulo.innerHTML = "Escolha a série que deseja";
-            titulo.style.marginBottom = "0px";
+
+            titulo.innerHTML = "";
+            titulo2.innerHTML = "";
+            
+        } else if (telaId === "s2") {
+            
+            titulo2.innerHTML = "Escolha a série que deseja";
+            // titulo.style.classList.add("hidden");
         }
 
     }
