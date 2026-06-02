@@ -1,4 +1,4 @@
-console.log("Só Jesus na causa");
+console.log("Só Jesus na causa 1 aqui começa o script.js");
 
 const botaoBase = document.getElementById("bnt-login");
 
@@ -48,7 +48,8 @@ function voltar(index) {
         creditos: "/html/creditos.html",
         login: "/html/login.html",
         esSe: "/html/index.html",
-        esSeDS: "/html/escoSeries/escolhaSerieDS.html",
+        esSeDS: "/html/index.html",
+
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
         conSec: "/html/conteudos/conSec.html",
@@ -56,7 +57,11 @@ function voltar(index) {
         conTex: "/html/conteudos/conTex.html"
     };
 
-    window.location.href = paginas[index];
+    if (paginas[index]) {
+        window.location.href = paginas[index];
+    } else {
+        history.back();
+    }
 }
 
 // function mostarTela (bimestres) 
@@ -146,25 +151,26 @@ window.addEventListener("DOMContentLoaded", () => {
     const ano = params.get("ano");
     const bimestre = params.get("bimestre");
 
-    if (!curso || !ano || !bimestre) {
-        return;
-    }
+    if (curso && ano && bimestre) {
+        const targetAnoId = `${ano}ano`;
+        const targetBimestreId = `${curso.toUpperCase()}-${ano}-b${bimestre}`;
+        const targetAnoSection = document.getElementById(targetAnoId);
+        const targetBimestreSection = document.getElementById(targetBimestreId);
 
-    const targetAnoId = `${ano}ano`;
-    const targetBimestreId = `${curso.toUpperCase()}-${ano}-b${bimestre}`;
-    const targetAnoSection = document.getElementById(targetAnoId);
-    const targetBimestreSection = document.getElementById(targetBimestreId);
-
-    if (!targetAnoSection || !targetBimestreSection) {
-        return;
-    }
-
-    document.querySelectorAll("section[id]").forEach(section => {
-        const sectionId = section.id;
-        if (sectionId === targetAnoId || sectionId === targetBimestreId) {
-            section.classList.remove("hidden");
-        } else {
-            section.classList.add("hidden");
+        if (targetAnoSection && targetBimestreSection) {
+            document.querySelectorAll("section[id]").forEach(section => {
+                const sectionId = section.id;
+                if (sectionId === targetAnoId || sectionId === targetBimestreId) {
+                    section.classList.remove("hidden");
+                } else {
+                    section.classList.add("hidden");
+                }
+            });
         }
-    });
+    }
+
+    mostrarTela("s1");
 });
+
+
+console.log("Só Jesus na causa 2 aqui termina o script.js");
