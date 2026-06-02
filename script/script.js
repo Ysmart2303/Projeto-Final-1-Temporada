@@ -1,3 +1,5 @@
+console.log("Só Jesus na causa");
+
 const botaoBase = document.getElementById("bnt-login");
 
 // VARIÁVEIS GLOBAIS PARA RASTREAMENTO DE NAVEGAÇÃO
