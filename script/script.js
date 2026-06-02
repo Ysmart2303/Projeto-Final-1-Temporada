@@ -23,114 +23,17 @@ function irParaBimestre(numeroBimestre) {
 
     bimestreSelecionado = numeroBimestre;
 
-    // Mapeamento de páginas por curso, ano e bimestre
-    const mapaPaginas = {
-        "ds": {
-            1: {
-                1: "/html/conteudos/conDS.html",
-                2: "/html/conteudos/conDS.html",
-                3: "/html/conteudos/conDS.html",
-                4: "/html/conteudos/conDS.html"
-            },
-            2: {
-                1: "/html/conteudos/conDS.html",
-                2: "/html/conteudos/conDS.html",
-                3: "/html/conteudos/conDS.html",
-                4: "/html/conteudos/conDS.html"
-            },
-            3: {
-                1: "/html/conteudos/conDS.html",
-                2: "/html/conteudos/conDS.html",
-                3: "/html/conteudos/conDS.html",
-                4: "/html/conteudos/conDS.html"
-            }
-        },
-        "qm": {
-            1: {
-                1: "/html/conteudos/conQm.html",
-                2: "/html/conteudos/conQm.html",
-                3: "/html/conteudos/conQm.html",
-                4: "/html/conteudos/conQm.html"
-            },
-            2: {
-                1: "/html/conteudos/conQm.html",
-                2: "/html/conteudos/conQm.html",
-                3: "/html/conteudos/conQm.html",
-                4: "/html/conteudos/conQm.html"
-            },
-            3: {
-                1: "/html/conteudos/conQm.html",
-                2: "/html/conteudos/conQm.html",
-                3: "/html/conteudos/conQm.html",
-                4: "/html/conteudos/conQm.html"
-            }
-        },
-        "sec": {
-            1: {
-                1: "/html/conteudos/conSec.html",
-                2: "/html/conteudos/conSec.html",
-                3: "/html/conteudos/conSec.html",
-                4: "/html/conteudos/conSec.html"
-            },
-            2: {
-                1: "/html/conteudos/conSec.html",
-                2: "/html/conteudos/conSec.html",
-                3: "/html/conteudos/conSec.html",
-                4: "/html/conteudos/conSec.html"
-            },
-            3: {
-                1: "/html/conteudos/conSec.html",
-                2: "/html/conteudos/conSec.html",
-                3: "/html/conteudos/conSec.html",
-                4: "/html/conteudos/conSec.html"
-            }
-        },
-        "log": {
-            1: {
-                1: "/html/conteudos/conLogi.html",
-                2: "/html/conteudos/conLogi.html",
-                3: "/html/conteudos/conLogi.html",
-                4: "/html/conteudos/conLogi.html"
-            },
-            2: {
-                1: "/html/conteudos/conLogi.html",
-                2: "/html/conteudos/conLogi.html",
-                3: "/html/conteudos/conLogi.html",
-                4: "/html/conteudos/conLogi.html"
-            },
-            3: {
-                1: "/html/conteudos/conLogi.html",
-                2: "/html/conteudos/conLogi.html",
-                3: "/html/conteudos/conLogi.html",
-                4: "/html/conteudos/conLogi.html"
-            }
-        },
-        "tex": {
-            1: {
-                1: "/html/conteudos/conTex.html",
-                2: "/html/conteudos/conTex.html",
-                3: "/html/conteudos/conTex.html",
-                4: "/html/conteudos/conTex.html"
-            },
-            2: {
-                1: "/html/conteudos/conTex.html",
-                2: "/html/conteudos/conTex.html",
-                3: "/html/conteudos/conTex.html",
-                4: "/html/conteudos/conTex.html"
-            },
-            3: {
-                1: "/html/conteudos/conTex.html",
-                2: "/html/conteudos/conTex.html",
-                3: "/html/conteudos/conTex.html",
-                4: "/html/conteudos/conTex.html"
-            }
-        }
+    const paginaPorCurso = {
+        ds: "conDS.html",
+        qm: "conQm.html",
+        sec: "conSec.html",
+        log: "conLogi.html",
+        tex: "conTex.html"
     };
 
-    const pagina = mapaPaginas[cursoSelecionado]?.[anoSelecionado]?.[numeroBimestre];
-
-    if (pagina) {
-        window.location.href = `${pagina}?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
+    const arquivoCurso = paginaPorCurso[cursoSelecionado];
+    if (arquivoCurso) {
+        window.location.href = `/html/conteudos/${arquivoCurso}?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
     } else {
         alert("Página não configurada para esta combinação de curso, ano e bimestre.");
     }
@@ -142,13 +45,12 @@ function voltar(index) {
         home: "/html/index.html",
         creditos: "/html/creditos.html",
         login: "/html/login.html",
-
+        esSe: "/html/index.html",
         esSeDS: "/html/escoSeries/escolhaSerieDS.html",
-
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
         conSec: "/html/conteudos/conSec.html",
-        conLogi: "/html/conteudos/coLogi.html",
+        conLogi: "/html/conteudos/conLogi.html",
         conTex: "/html/conteudos/conTex.html"
     };
 
@@ -235,3 +137,32 @@ function selecionarAno(numeroAno) {
 function falarnome() {
     alert("Sistema integrado de Gestão Adêmica");
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const curso = params.get("curso");
+    const ano = params.get("ano");
+    const bimestre = params.get("bimestre");
+
+    if (!curso || !ano || !bimestre) {
+        return;
+    }
+
+    const targetAnoId = `${ano}ano`;
+    const targetBimestreId = `${curso.toUpperCase()}-${ano}-b${bimestre}`;
+    const targetAnoSection = document.getElementById(targetAnoId);
+    const targetBimestreSection = document.getElementById(targetBimestreId);
+
+    if (!targetAnoSection || !targetBimestreSection) {
+        return;
+    }
+
+    document.querySelectorAll("section[id]").forEach(section => {
+        const sectionId = section.id;
+        if (sectionId === targetAnoId || sectionId === targetBimestreId) {
+            section.classList.remove("hidden");
+        } else {
+            section.classList.add("hidden");
+        }
+    });
+});
