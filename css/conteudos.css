@@ -13,14 +13,29 @@
     justify-content: center;
 }
 
+
 .quadroConteudos {
     width: 150px;
     height: 150px;
-
+    
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
-
+    
     border-radius: 20px;
+
+    transition: all 0.3s ease; /* Suaviza a transição */
+}
+
+.quadroConteudos:hover, .quadroAtividades:hover {
+    cursor: pointer;
+    
+    transform: scale(1.1);
+    
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.quadroConteudos:active, .quadroAtividades:active {
+    transform: scale(0.9);
 }
 
 .atividades {
@@ -36,6 +51,8 @@
     border: 2px solid var(--marine_blue);
 
     border-radius: 20px;
+
+    transition: all 0.3s ease; /* Suaviza a transição */    
 }
 
 .Atividades {
