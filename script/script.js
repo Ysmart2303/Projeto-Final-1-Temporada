@@ -1,4 +1,4 @@
-console.log("Só Jesus na causa 1 aqui começa o script.js");
+console.log("Só Jesus na causa 1 / aqui começa o script.js");
 
 const botaoBase = document.getElementById("bnt-login");
 
@@ -46,7 +46,9 @@ function voltar(index) {
     const paginas = {
         home: "/html/index.html",
         creditos: "/html/creditos.html",
-        login: "/html/login.html",
+        
+        login: "/jl/pj/pj.html",
+
         esSe: "/html/index.html",
         esSeDS: "/html/index.html",
 

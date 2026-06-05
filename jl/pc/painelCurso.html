@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAINEL DS</title>
+    <link rel="stylesheet" href="/jl/pc/painelCurso.css">
+</head>
+
+    <body>
+
+        <header>
+
+            <img src="/img/mcvm-logo.png" alt="logo" id="logo" style="width: 100px; height: auto;">
+
+            <div class="cursoInfo">
+                <h2 id="tituloCurso"></h2>
+                <p id="nomeProfessor"></p>
+                <h2 id="serieAtual" style="display:none;"></h2>
+            </div>
+
+            <!-- <button id="sitePrincipal" onclick="acessarSP()">Site Principal</button> -->
+        
+        </header>
+
+        <main>
+
+            <section class="SeriesSec">
+
+                <h1 style="animation: subirMes 2s ease;">Série</h1>
+
+                <section id="listaSe">
+
+                    <div class="serie" onclick="abrirSerie(1)">
+                        <h1>1° Série</h1>
+                    </div>
+
+                    <div class="serie" onclick="abrirSerie(2)">
+                        <h1>2° Série</h1>
+                    </div>
+
+                    <div class="serie" onclick="abrirSerie(3)">
+                        <h1>3° Série</h1>
+                    </div>
+
+            </section>
+
+                <section class="periodos1">
+
+                    <h1 style="animation: subirMes 2s ease;">Período 🗓️</h1>
+
+                    <section id="listaBi">
+
+                        <div class="mes" onclick="abrirMes(1)">
+                            <h1>Bimestre 1</h1>
+                        </div>
+                        <div class="mes" onclick="abrirMes(2)">
+                            <h1>Bimestre 2</h1>
+                        </div>
+                        <div class="mes" onclick="abrirMes(3)">
+                            <h1>Bimestre 3</h1>
+                        </div>
+                        <div class="mes" onclick="abrirMes(4)">
+                            <h1>Bimestre 4</h1>
+                        </div>
+
+                    </section>
+
+                    <button id="voltarSeries" onclick="voltarSeries()">Voltar</button>
+                    <div id="conteudoBi"></div>
+                </section>
+            </section>
+
+            <div class="cardProfessor">
+                <h3>Contato do Professor</h3>
+                <input type="email" id="emailProfessor" placeholder="Digite o email" />
+                <button onclick="salvarEmail()">Salvar</button>
+            </div>
+        </main>
+
+        <script src="painelCurso.js" defer></script>
+    </body>
+</html>

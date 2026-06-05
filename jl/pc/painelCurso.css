@@ -1,0 +1,250 @@
+:root {
+    --grade_curso : 290px;
+    --cor_fundo : #131a28;
+    --marine_blue : #273f5c;
+    --hemlock : #7a969c;
+    --manor_blue : #bebbc5;
+    --distant_gray : #f5f7f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    color:#ffffff;
+    background-color: rgb(19, 26, 40);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cursoInfo {
+    margin: 15px;
+}
+
+.cursoInfo p {
+    text-align: end;
+}
+
+button {
+    color: white;
+    background-color: #2d2d2d;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(1, 11, 31, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.SeriesSec {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 10px solid var(--manor_blue);
+    border-radius: 20px;
+
+    gap: 10px;
+    margin-bottom: 30px;
+
+    padding: 20px;
+}
+
+#listaSe {
+    display: flex;
+    justify-content: space-evenly;
+
+    flex-wrap: wrap;
+}
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px 40px;
+    }
+
+    .periodos1,
+    .cardProfessor,
+    .painelEdicao {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 20px;
+    }
+
+    .periodos1 {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: subirMes 2s ease;
+    }
+
+    .mes, .serie, .cardOpcao {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background:var(--hemlock);
+
+        width: 200px;
+        height: 200px;
+
+        /* padding: 15px; */
+        border-radius: 20px;
+
+
+        box-shadow: 0 10px 20px rgba(1, 11, 31, 0.8);
+    
+        overflow: hidden;
+        cursor: pointer;
+
+        transition: transform 0.3s ease;
+        animation: subirMes 2s ease;
+
+    }
+
+    .mes h1, .serie h1, .cardOpcao h1 {
+
+        background-color: rgba(205, 220, 255, 0.486);
+
+        padding: 5px;
+        border-radius: 10px;
+
+    }
+
+    .mes:hover,
+    .serie:hover,
+    .cardOpcao:hover {
+        transform: translateY(-6px);
+    }
+
+    .mes:before,
+    .serie:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 60%;
+        height: 100%;
+        background-color: rgb(19, 26, 40);
+        transform: skewX(-25deg);
+        transition: 0.7s;
+    }
+
+    .opcoesBimestre {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+
+    #conteudoBi {
+        margin-top: 20px;
+    }
+
+    #textoConteudo,
+    #assunto,
+    #linkAjuda,
+    #emailProfessor {
+        width: 90%;
+        max-width: 900px;
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: white;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    #textoConteudo {
+        height: 250px;
+    }
+
+    .botoesEdicao {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #voltarSeries {
+        margin-top: 10px;
+    }
+
+    @keyframes subirMes {
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .painelEdicao {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .painelEdicao h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .painelEdicao input,
+    .painelEdicao textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .painelEdicao textarea {
+        height: 250px;
+        resize: vertical;
+    }
+
+.cardProfessor input {
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    margin-bottom:15px;
+
+    box-sizing:border-box;
+}
