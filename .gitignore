@@ -1,11 +1,12 @@
-/backend
-node_modules/
-.env
-*.log
-.DS_Store
-dist/
-build/
+#/backend
+#.env
+#*.log
+#.DS_Store
+#3dist/
+#build/
 
 # Documentação (não enviar para GitHub)
-*.md
-!README.md
+#*.md
+#!README.md
+
+node_modules
