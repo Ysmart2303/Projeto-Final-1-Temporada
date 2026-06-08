@@ -31,27 +31,10 @@ npm install
 npm run dev
 ```
 
-### 4️⃣ Acessar o Projeto
-- **Página Principal**: http://localhost:3000/html/index.html
-- **Painel Admin**: http://localhost:3000/jl/pj/pj.html
-
----
-
-## 📖 Documentação
-
-- 📋 **[MYSQL_SETUP.md](./MYSQL_SETUP.md)** - Guia completo de configuração do MySQL
-- 💡 **[EXEMPLOS-USO.md](./EXEMPLOS-USO.md)** - Exemplos de uso da API
-
----
-
 ## 🗂️ Estrutura do Projeto
 
 ```
 Projeto-Final-1-Temporada/
-├── backend/
-│   ├── server.js          # 🖥️ Servidor Express com API
-│   ├── db.js              # 🔗 Conexão com MySQL
-│   └── schema.sql         # 🗄️ Script para criar BD
 ├── html/
 │   ├── index.html         # 🏠 Página principal
 │   ├── creditos.html      # 👥 Créditos
@@ -73,71 +56,6 @@ Projeto-Final-1-Temporada/
 └── MYSQL_SETUP.md        # 🗄️ Guia MySQL
 ```
 
----
-
-## 🔌 Endpoints da API
-
-### Autenticação
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| POST | `/api/auth/login` | Fazer login |
-| POST | `/api/auth/cadastro` | Registrar novo usuário |
-
-### Cursos
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/cursos` | Listar cursos |
-| POST | `/api/cursos` | Criar curso |
-
-### Conteúdos
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/conteudos/:curso/:ano/:bimestre` | Obter conteúdos |
-| POST | `/api/conteudos` | Criar conteúdo |
-
-### Atividades
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/atividades/:conteudo_id` | Listar atividades |
-| POST | `/api/atividades` | Criar atividade |
-
-### Saúde
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/health` | Verificar conexão com BD |
-
----
-
-## 👤 Usuários Padrão (Teste)
-
-| Usuário | Senha | Tipo |
-|---------|-------|------|
-| `admin` | `admin123` | Admin |
-| `aluno1` | `senha123` | Aluno |
-| `professor1` | `prof123` | Professor |
-
-**Cursos Administrativos:**
-
-| Usuário | Senha | Curso |
-|---------|-------|-------|
-| `ds` | `ds123` | Desenvolvimento de Sistemas |
-| `qm` | `qm123` | Química |
-| `sec` | `sec123` | Secretariado |
-| `log` | `log123` | Logística |
-| `tex` | `tex123` | Têxtil |
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Backend**: Node.js, Express.js
-- **Banco de Dados**: MySQL 8.0+
-- **Segurança**: SHA2 (criptografia de senhas)
-- **API**: REST com CORS
-
----
-
 ## 📦 Dependências Principais
 
 ```json
@@ -154,19 +72,6 @@ Projeto-Final-1-Temporada/
 ---
 
 ## ⚙️ Configuração
-
-### Arquivo `.env`
-```env
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=sua_senha
-DB_NAME=siga_mcvm
-DB_PORT=3306
-PORT=3000
-NODE_ENV=development
-```
-
----
 
 ## 🚀 Comandos Disponíveis
 
