@@ -1,0 +1,120 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                   🎓 SIGA MCVM - QUICKSTART                               ║
+║            Sistema Integrado de Gestão Acadêmica + MySQL                  ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+📋 PASSOS RÁPIDOS PARA COMEÇAR:
+
+1️⃣  INSTALAR DEPENDÊNCIAS
+    ────────────────────────────
+    npm install
+
+
+2️⃣  CONFIGURAR BANCO DE DADOS
+    ────────────────────────────
+    a) Editar arquivo .env com suas credenciais MySQL:
+       - DB_PASSWORD = sua senha do MySQL
+    
+    b) Abrir cliente MySQL (Workbench, phpMyAdmin ou terminal)
+    
+    c) Copiar todo conteúdo do arquivo: backend/schema.sql
+    
+    d) Colar e executar no MySQL
+
+
+3️⃣  INICIAR SERVIDOR
+    ────────────────────────────
+    npm run dev
+    
+    Você verá: ✅ Servidor rodando em http://localhost:3000
+
+
+4️⃣  TESTAR A CONEXÃO
+    ────────────────────────────
+    Abrir no navegador:
+    http://localhost:3000/api/health
+    
+    Deve retornar:
+    { "sucesso": true, "mensagem": "Servidor conectado ao banco de dados" }
+
+
+5️⃣  ACESSAR A APLICAÇÃO
+    ────────────────────────────
+    Página Principal:   http://localhost:3000/html/index.html
+    Painel Admin:       http://localhost:3000/jl/pj/pj.html
+    Testador API:       http://localhost:3000/api-tester.html
+
+
+🔐 CREDENCIAIS DE TESTE
+    ────────────────────────────
+    Usuário: admin
+    Senha:   admin123
+    
+    (Ou aluno1/senha123 ou professor1/prof123)
+
+
+📚 DOCUMENTAÇÃO
+    ────────────────────────────
+    README.md .................. Visão geral do projeto
+    MYSQL_SETUP.md ............. Guia detalhado de MySQL
+    EXEMPLOS-USO.md ............ Exemplos de código
+    CHECKLIST.md ............... Checklist de configuração
+    RESUMO-SETUP.md ............ Resumo de tudo que foi feito
+    api-tester.html ............ Interface para testar API
+
+
+⚡ COMANDOS ÚTEIS
+    ────────────────────────────
+    npm run dev ................ Modo desenvolvimento (hot-reload)
+    npm start .................. Modo produção
+    mysql -u root -p ........... Conectar ao MySQL (terminal)
+
+
+🚨 PROBLEMAS COMUNS
+    ────────────────────────────
+    ❌ "Connect ECONNREFUSED"
+       → MySQL não está rodando
+       → Verifique credenciais em .env
+    
+    ❌ "ER_NO_DB_ERROR"
+       → Schema.sql não foi executado
+       → Execute todo o conteúdo de backend/schema.sql
+    
+    ❌ "CORS error"
+       → Server deve estar em http://localhost:3000
+       → Verifique PORT=3000 em .env
+
+
+✅ TUDO PRONTO?
+    ────────────────────────────
+    Seu projeto está 100% pronto para usar com MySQL!
+    
+    Próximos passos:
+    1. Complete o CHECKLIST.md
+    2. Leia MYSQL_SETUP.md
+    3. Teste com api-tester.html
+    4. Comece a desenvolver!
+
+
+💡 DICA
+    ────────────────────────────
+    Abra o Console do Navegador (F12) para ver mensagens de erro
+    Verifique o terminal do servidor para logs
+
+
+📞 PRECISA DE AJUDA?
+    ────────────────────────────
+    MYSQL_SETUP.md ........ Configuração do MySQL
+    EXEMPLOS-USO.md ....... Como usar a API
+    CHECKLIST.md .......... Lista de verificação
+    api-tester.html ....... Teste endpoints
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎉 BEM-VINDO AO SIGA MCVM!
+
+Seu sistema está pronto. Comece agora:
+    npm install && npm run dev
+
+═══════════════════════════════════════════════════════════════════════════

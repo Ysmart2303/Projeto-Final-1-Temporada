@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testador de API - SIGA MCVM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .section {
+            border: 1px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .resultado {
+            background: white;
+            border: 1px solid #ecf0f1;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .resultado pre {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .sucesso {
+            color: #27ae60;
+            background: #d5f4e6;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .erro {
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .carregando {
+            color: #f39c12;
+            background: #fef5e7;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Testador de API - SIGA MCVM</h1>
+            <p>Teste os endpoints da sua API MySQL em tempo real</p>
+        </div>
+
+        <div class="content">
+            <!-- TESTE DE CONEXÃO -->
+            <div class="section">
+                <h2>🔗 Conexão</h2>
+                <button onclick="testarConexao()">Verificar Conexão com BD</button>
+                <div id="resultConexao" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- LOGIN -->
+            <div class="section">
+                <h2>🔐 Login</h2>
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="loginUser" value="admin" placeholder="Ex: admin">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginSenha" value="admin123" placeholder="Ex: admin123">
+                </div>
+                <button onclick="testarLogin()">Fazer Login</button>
+                <div id="resultLogin" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CADASTRO -->
+            <div class="section">
+                <h2>📝 Cadastrar Usuário</h2>
+                <div class="form-group">
+                    <label>Novo Usuário</label>
+                    <input type="text" id="cadastroUser" placeholder="Ex: novo_usuario">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="cadastroSenha" placeholder="Ex: senha123">
+                </div>
+                <button onclick="testarCadastro()">Cadastrar Usuário</button>
+                <div id="resultCadastro" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CURSOS -->
+            <div class="section">
+                <h2>📚 Listar Cursos</h2>
+                <button onclick="listarCursos()">Obter Cursos</button>
+                <div id="resultCursos" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CRIAR CURSO -->
+            <div class="section">
+                <h2>➕ Criar Curso</h2>
+                <div class="form-group">
+                    <label>Nome do Curso</label>
+                    <input type="text" id="cursoCriarNome" placeholder="Ex: Novo Curso">
+                </div>
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="cursoCriarUser" placeholder="Ex: novocurso">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="cursoCriarSenha" placeholder="Ex: senha123">
+                </div>
+                <button onclick="criarCursoTeste()">Criar Curso</button>
+                <div id="resultCriarCurso" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CONTEÚDOS -->
+            <div class="section">
+                <h2>📖 Obter Conteúdos</h2>
+                <div class="form-group">
+                    <label>Curso</label>
+                    <input type="text" id="contCurso" value="ds" placeholder="Ex: ds">
+                </div>
+                <div class="form-group">
+                    <label>Ano</label>
+                    <input type="number" id="contAno" value="1" placeholder="Ex: 1">
+                </div>
+                <div class="form-group">
+                    <label>Bimestre</label>
+                    <input type="number" id="contBimestre" value="1" placeholder="Ex: 1">
+                </div>
+                <button onclick="obterConteudosTeste()">Buscar Conteúdos</button>
+                <div id="resultConteudos" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CRIAR CONTEÚDO -->
+            <div class="section">
+                <h2>✏️ Criar Conteúdo</h2>
+                <div class="form-group">
+                    <label>Curso</label>
+                    <input type="text" id="criaCurso" value="ds" placeholder="Ex: ds">
+                </div>
+                <div class="form-group">
+                    <label>Ano</label>
+                    <input type="number" id="criaAno" value="1" placeholder="Ex: 1">
+                </div>
+                <div class="form-group">
+                    <label>Bimestre</label>
+                    <input type="number" id="criaBimestre" value="1" placeholder="Ex: 1">
+                </div>
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="criaTitulo" placeholder="Ex: Novo Tema">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="criaDescricao" placeholder="Ex: Descrição do conteúdo" rows="3"></textarea>
+                </div>
+                <button onclick="criarConteudoTeste()">Criar Conteúdo</button>
+                <div id="resultCriarConteudo" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- ATIVIDADES -->
+            <div class="section">
+                <h2>✅ Obter Atividades</h2>
+                <div class="form-group">
+                    <label>ID do Conteúdo</label>
+                    <input type="number" id="ativConteudoId" value="1" placeholder="Ex: 1">
+                </div>
+                <button onclick="obterAtividadesTeste()">Buscar Atividades</button>
+                <div id="resultAtividades" class="resultado" style="display: none;"></div>
+            </div>
+
+            <!-- CRIAR ATIVIDADE -->
+            <div class="section">
+                <h2>➕ Criar Atividade</h2>
+                <div class="form-group">
+                    <label>ID do Conteúdo</label>
+                    <input type="number" id="ativCriaConteudoId" value="1" placeholder="Ex: 1">
+                </div>
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="ativCriaTitulo" placeholder="Ex: Exercício 1">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="ativCriaDescricao" placeholder="Ex: Descrição da atividade" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Prazo (YYYY-MM-DD HH:MM:SS)</label>
+                    <input type="text" id="ativCriaPrazo" placeholder="Ex: 2026-12-31 23:59:59">
+                </div>
+                <button onclick="criarAtividadeTeste()">Criar Atividade</button>
+                <div id="resultCriarAtividade" class="resultado" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        function mostrarResultado(elementId, resultado, sucesso = true) {
+            const elemento = document.getElementById(elementId);
+            elemento.style.display = 'block';
+            
+            const classe = sucesso ? 'sucesso' : 'erro';
+            elemento.innerHTML = `<div class="${classe}"><pre>${JSON.stringify(resultado, null, 2)}</pre></div>`;
+        }
+
+        function mostrarCarregando(elementId) {
+            const elemento = document.getElementById(elementId);
+            elemento.style.display = 'block';
+            elemento.innerHTML = '<div class="carregando">⏳ Carregando...</div>';
+        }
+
+        async function testarConexao() {
+            mostrarCarregando('resultConexao');
+            try {
+                const resp = await fetch(API_URL + '/health');
+                const resultado = await resp.json();
+                mostrarResultado('resultConexao', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultConexao', { erro: erro.message }, false);
+            }
+        }
+
+        async function testarLogin() {
+            mostrarCarregando('resultLogin');
+            try {
+                const usuario = document.getElementById('loginUser').value;
+                const senha = document.getElementById('loginSenha').value;
+                
+                const resp = await fetch(API_URL + '/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, senha })
+                });
+                const resultado = await resp.json();
+                mostrarResultado('resultLogin', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultLogin', { erro: erro.message }, false);
+            }
+        }
+
+        async function testarCadastro() {
+            mostrarCarregando('resultCadastro');
+            try {
+                const usuario = document.getElementById('cadastroUser').value;
+                const senha = document.getElementById('cadastroSenha').value;
+                
+                if (!usuario || !senha) {
+                    mostrarResultado('resultCadastro', { erro: 'Preencha usuário e senha' }, false);
+                    return;
+                }
+
+                const resp = await fetch(API_URL + '/auth/cadastro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, senha })
+                });
+                const resultado = await resp.json();
+                mostrarResultado('resultCadastro', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultCadastro', { erro: erro.message }, false);
+            }
+        }
+
+        async function listarCursos() {
+            mostrarCarregando('resultCursos');
+            try {
+                const resp = await fetch(API_URL + '/cursos');
+                const resultado = await resp.json();
+                mostrarResultado('resultCursos', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultCursos', { erro: erro.message }, false);
+            }
+        }
+
+        async function criarCursoTeste() {
+            mostrarCarregando('resultCriarCurso');
+            try {
+                const nome = document.getElementById('cursoCriarNome').value;
+                const usuario = document.getElementById('cursoCriarUser').value;
+                const senha = document.getElementById('cursoCriarSenha').value;
+
+                if (!nome || !usuario || !senha) {
+                    mostrarResultado('resultCriarCurso', { erro: 'Preencha todos os campos' }, false);
+                    return;
+                }
+
+                const resp = await fetch(API_URL + '/cursos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, usuario, senha })
+                });
+                const resultado = await resp.json();
+                mostrarResultado('resultCriarCurso', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultCriarCurso', { erro: erro.message }, false);
+            }
+        }
+
+        async function obterConteudosTeste() {
+            mostrarCarregando('resultConteudos');
+            try {
+                const curso = document.getElementById('contCurso').value;
+                const ano = document.getElementById('contAno').value;
+                const bimestre = document.getElementById('contBimestre').value;
+
+                const resp = await fetch(API_URL + `/conteudos/${curso}/${ano}/${bimestre}`);
+                const resultado = await resp.json();
+                mostrarResultado('resultConteudos', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultConteudos', { erro: erro.message }, false);
+            }
+        }
+
+        async function criarConteudoTeste() {
+            mostrarCarregando('resultCriarConteudo');
+            try {
+                const curso = document.getElementById('criaCurso').value;
+                const ano = document.getElementById('criaAno').value;
+                const bimestre = document.getElementById('criaBimestre').value;
+                const titulo = document.getElementById('criaTitulo').value;
+                const descricao = document.getElementById('criaDescricao').value;
+
+                if (!curso || !ano || !bimestre || !titulo) {
+                    mostrarResultado('resultCriarConteudo', { erro: 'Preencha todos os campos obrigatórios' }, false);
+                    return;
+                }
+
+                const resp = await fetch(API_URL + '/conteudos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ curso, ano, bimestre, titulo, descricao })
+                });
+                const resultado = await resp.json();
+                mostrarResultado('resultCriarConteudo', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultCriarConteudo', { erro: erro.message }, false);
+            }
+        }
+
+        async function obterAtividadesTeste() {
+            mostrarCarregando('resultAtividades');
+            try {
+                const conteudo_id = document.getElementById('ativConteudoId').value;
+
+                const resp = await fetch(API_URL + `/atividades/${conteudo_id}`);
+                const resultado = await resp.json();
+                mostrarResultado('resultAtividades', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultAtividades', { erro: erro.message }, false);
+            }
+        }
+
+        async function criarAtividadeTeste() {
+            mostrarCarregando('resultCriarAtividade');
+            try {
+                const conteudo_id = document.getElementById('ativCriaConteudoId').value;
+                const titulo = document.getElementById('ativCriaTitulo').value;
+                const descricao = document.getElementById('ativCriaDescricao').value;
+                const prazo = document.getElementById('ativCriaPrazo').value;
+
+                if (!conteudo_id || !titulo) {
+                    mostrarResultado('resultCriarAtividade', { erro: 'Preencha conteúdo ID e título' }, false);
+                    return;
+                }
+
+                const resp = await fetch(API_URL + '/atividades', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ conteudo_id, titulo, descricao, prazo: prazo || null })
+                });
+                const resultado = await resp.json();
+                mostrarResultado('resultCriarAtividade', resultado, resultado.sucesso);
+            } catch (erro) {
+                mostrarResultado('resultCriarAtividade', { erro: erro.message }, false);
+            }
+        }
+    </script>
+</body>
+</html>
