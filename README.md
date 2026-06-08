@@ -15,22 +15,6 @@ Um sistema completo para gerenciar cursos, conteúdos, atividades e usuários de
 
 ---
 
-## 🚀 Quick Start
-
-### 1️⃣ Instalar Dependências
-```bash
-npm install
-```
-
-### 2️⃣ Configurar Banco de Dados
-- Edite o arquivo `.env` com suas credenciais MySQL
-- Execute o arquivo `backend/schema.sql` no seu cliente MySQL
-
-### 3️⃣ Iniciar o Servidor
-```bash
-npm run dev
-```
-
 ## 🗂️ Estrutura do Projeto
 
 ```
