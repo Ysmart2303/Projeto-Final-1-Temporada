@@ -55,55 +55,6 @@ Projeto-Final-1-Temporada/
 
 ---
 
-## ⚙️ Configuração
-
-## 🚀 Comandos Disponíveis
-
-```bash
-# Instalar dependências
-npm install
-
-# Modo desenvolvimento (com hot-reload)
-npm run dev
-
-# Modo produção
-npm start
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Erro: "Connect ECONNREFUSED"
-- Verifique se MySQL está rodando
-- Confirme as credenciais no `.env`
-
-### Erro: "ER_NO_DB_ERROR"
-- Execute o arquivo `backend/schema.sql`
-
-### Erro: "CORS Error"
-- Certifique-se que o servidor está em `http://localhost:3000`
-
----
-
-## 📚 Aprender Mais
-
-- [Documentação MySQL](https://dev.mysql.com/doc/)
-- [Express.js Guia](https://expressjs.com/)
-- [REST API Best Practices](https://restfulapi.net/)
-
----
-
-## 📞 Suporte
-
-Para dúvidas ou problemas:
-1. Verifique a documentação em `MYSQL_SETUP.md`
-2. Consulte os exemplos em `EXEMPLOS-USO.md`
-3. Abra o console do navegador (F12) para ver erros
-4. Verifique os logs do servidor no terminal
-
----
-
 ## 📝 Licença
 
 Este projeto é de uso educacional. © 2024 MCVM
