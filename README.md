@@ -1,64 +1,32 @@
-# 🎓 SIGA MCVM - Sistema Integrado de Gestão Acadêmica
+# SIGA MCVM - Frontend Estático
 
-Um sistema completo para gerenciar cursos, conteúdos, atividades e usuários de uma escola técnica.
+Este projeto foi limpo das dependências de Node.js e MySQL para permitir uma reconstrução manual.
 
-## ✨ Características
+## O que sobrou
 
-- ✅ **Gerenciamento de Cursos** - Crie e gerencie múltiplos cursos
-- 👥 **Controle de Usuários** - Alunos, professores e administradores
-- 📚 **Biblioteca de Conteúdos** - Organize conteúdos por curso, ano e bimestre
-- ✏️ **Atividades e Avaliações** - Crie atividades com prazos
-- 💾 **Banco de Dados MySQL** - Armazenamento seguro e escalável
-- 🔐 **Autenticação Segura** - Senhas criptografadas com SHA2
-- 🌐 **API REST** - Backend completo com Express.js
-- 📱 **Interface Responsiva** - Funciona em desktop e mobile
+- `html/` - páginas do site
+- `css/` - estilos
+- `img/` - imagens e ícones
+- `jl/pc/` - painel local de curso
+- `script/script.js` - scripts JavaScript do frontend
 
----
+## O que foi removido
 
-## 🗂️ Estrutura do Projeto
+- `backend/` (servidor Node.js)
+- `package.json` e `package-lock.json`
+- `node_modules/`
+- `.env`
+- `api-tester.html`
+- `documentacao/`
+- `script/api.js`
+- `script/carregarConteudos.js`
+- `jl/pj/`
 
-```
-Projeto-Final-1-Temporada/
-├── html/
-│   ├── index.html         # 🏠 Página principal
-│   ├── creditos.html      # 👥 Créditos
-│   ├── conteudos/         # 📚 Páginas de conteúdo
-│   └── model.html         # 🎨 Template
-├── script/
-│   ├── api.js             # 🔌 Cliente da API
-│   ├── script.js          # 📜 Scripts gerais
-│   └── carregarConteudos.js  # 📖 Carregar conteúdos do BD
-├── jl/
-│   ├── pc/                # 🎓 Painel de cursos
-│   └── pj/                # 🔑 Painel administrativo
-├── css/                   # 🎨 Estilos
-├── img/                   # 🖼️ Imagens
-├── package.json           # 📦 Dependências
-├── .env                   # ⚙️ Configurações
-├── .gitignore            # 🚫 Arquivos ignorados
-├── README.md             # 📄 Este arquivo
-└── MYSQL_SETUP.md        # 🗄️ Guia MySQL
-```
+## Como usar
 
-## 📦 Dependências Principais
+1. Abra `html/index.html` no navegador.
+2. Edite o código HTML, CSS e JavaScript diretamente.
+3. Use o navegador como ambiente de testes local.
 
-```json
-{
-  "express": "^4.18.2",
-  "mysql2": "^3.6.0",
-  "cors": "^2.8.5",
-  "dotenv": "^16.3.1",
-  "body-parser": "^1.20.2",
-  "nodemon": "^3.0.1"
-}
-```
+> Agora o projeto está em modo estático. Não há servidor Node ou banco de dados configurado.
 
----
-
-## 📝 Licença
-
-Este projeto é de uso educacional. © 2024 MCVM
-
----
-
-**Desenvolvido com ❤️ para gerenciar educação!** 🎓

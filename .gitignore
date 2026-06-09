@@ -1,12 +1,6 @@
-#/backend
-#.env
-#*.log
-#.DS_Store
-#3dist/
-#build/
+﻿.DS_Store
+Thumbs.db
+*.log
 
-# Documentação (não enviar para GitHub)
-#*.md
-#!README.md
-
+# Node.js folders are no longer part of this project
 node_modules
