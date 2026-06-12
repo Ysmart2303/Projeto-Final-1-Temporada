@@ -42,11 +42,10 @@ function irParaBimestre(numeroBimestre) {
 }
 
 function voltar(index) {
-
     const paginas = {
         home: "/html/index.html",
         creditos: "/html/creditos.html",
-        
+
         login: "/jl/pj/pj.html",
 
         esSe: "/html/index.html",
@@ -66,34 +65,22 @@ function voltar(index) {
     }
 }
 
-// function mostarTela (bimestres) 
 // Base de tudo
-
 function mostrarTela(telaId) {
-
     const telas = ["s1", "s2", "bimestre", "bimestre2", "bimestre3", "ConEAtiv"];
 
     telas.forEach(id => {
-
         const el = document.getElementById(id);
-
-        if (el) {
-            el.classList.add("hidden");
-        }
-
+        if (el) el.classList.add("hidden");
     });
 
     const tela = document.getElementById(telaId);
-
-    if (tela) {
-        tela.classList.remove("hidden");
-    }
+    if (tela) tela.classList.remove("hidden");
 
     let titulo = document.getElementById("escolhaHH");
     let Subtitulo = document.getElementById("escolhaBB");
 
     if (telaId === "s1") {
-
         titulo.innerHTML = "Bem-vindo";
         Subtitulo.innerHTML = "Escolha o curso que deseja";
 
@@ -101,18 +88,16 @@ function mostrarTela(telaId) {
         botaoBase.onclick = () => voltar("login");
 
     } else if (telaId === "s2") {
-
         titulo.innerHTML = "Escolha a série que deseja";
         Subtitulo.innerHTML = "";
 
         botaoBase.textContent = "Voltar";
         botaoBase.onclick = () => mostrarTela("s1");
-    } else if (telaId === "ConEAtiv") {
 
+    } else if (telaId === "ConEAtiv") {
         titulo.innerHTML = "Conteúdos";
 
     } else if (telaId === "bimestre" || telaId === "bimestre2" || telaId === "bimestre3") {
-
         titulo.innerHTML = "Escolha o bimestre";
         Subtitulo.innerHTML = `${cursoSelecionado?.toUpperCase()} - ${anoSelecionado}º Ano`;
 
@@ -121,17 +106,16 @@ function mostrarTela(telaId) {
     }
 }
 
-// RASTREAR CURSO SELECIONADO - Adicione esta função
+// RASTREAR CURSO SELECIONADO
 function selecionarCurso(nomeCurso) {
     cursoSelecionado = nomeCurso.toLowerCase();
     mostrarTela("s2");
 }
 
-// RASTREAR ANO SELECIONADO - Adicione esta função
+// RASTREAR ANO SELECIONADO
 function selecionarAno(numeroAno) {
     anoSelecionado = numeroAno;
-    
-    // Mostrar a seção de bimestres correspondente
+
     if (numeroAno === 1) {
         mostrarTela("bimestre");
     } else if (numeroAno === 2) {
@@ -141,13 +125,40 @@ function selecionarAno(numeroAno) {
     }
 }
 
-// Falar o nome ao clicar no titulo
-
 function falarnome() {
     alert("Sistema integrado de Gestão Adêmica");
 }
 
+// tema dark / light (global para funcionar com onclick no HTML)
+window.toggleDarkMode = function toggleDarkMode() {
+    const currentTheme = document.documentElement.dataset.theme || "dark";
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+    document.documentElement.dataset.theme = nextTheme;
+    try {
+        localStorage.setItem("theme", nextTheme);
+    } catch (e) {
+        // ignora
+    }
+
+    const botao = document.getElementById("bnt-toggle");
+    if (botao) botao.textContent = nextTheme === "dark" ? "Dark" : "Light";
+};
+
 window.addEventListener("DOMContentLoaded", () => {
+    // aplicar tema salvo
+    try {
+        const savedTheme = localStorage.getItem("theme");
+        const initialTheme = savedTheme === "light" ? "light" : "dark";
+        document.documentElement.dataset.theme = initialTheme;
+
+        const botao = document.getElementById("bnt-toggle");
+        if (botao) botao.textContent = initialTheme === "dark" ? "Dark" : "Light";
+    } catch (e) {
+        // ignora
+    }
+
+    // lógica de telas
     const params = new URLSearchParams(window.location.search);
     const curso = params.get("curso");
     const ano = params.get("ano");
@@ -156,6 +167,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (curso && ano && bimestre) {
         const targetAnoId = `${ano}ano`;
         const targetBimestreId = `${curso.toUpperCase()}-${ano}-b${bimestre}`;
+
         const targetAnoSection = document.getElementById(targetAnoId);
         const targetBimestreSection = document.getElementById(targetBimestreId);
 
@@ -174,36 +186,5 @@ window.addEventListener("DOMContentLoaded", () => {
     mostrarTela("s1");
 });
 
-
 console.log("Só Jesus na causa 2 aqui termina o script.js");
 
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-// tema dark
-
-function toggleDarkMode() {
-    }

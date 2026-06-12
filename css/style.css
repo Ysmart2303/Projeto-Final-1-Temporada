@@ -5,31 +5,24 @@
 
 :root {
 
-    /* original colors */
-
+    /* Theme DARK (default) */
     --grade_curso : 290px;
     --cor_fundo : #131a28;
     --marine_blue : #273f5c;
     --hemlock : #7a969c;
     --manor_blue : #bebbc5;
     --distant_gray : #f5f7f9;
-
-     /* new color */
-
-    /* --cinza_grafite : #484450 ;
-    --azul_petroleo : #466067 ;
-    --verde_azulado : #459a96 ;
-    --turquesa : #34baab ;
-    --cinza_claro : #c4c8c5 ; */
-
-    /* new colors 2 */
-
-    /* --Branco_gelo : #f5f5f5 ;
-    --cinza_claro_suave : #e9e9e9 ;
-    --Verde_petroleo_escuro : #006666 ;
-    --verde_azulado_medio : #008584 ;
-    --cinza_medio_claro : #cccccc ; */
 }
+
+html[data-theme="light"] {
+    /* Theme LIGHT */
+    --cor_fundo : #25377d;
+    --marine_blue : #a3b7de;
+    --hemlock : #6b7a8a;
+    --manor_blue : #3b5aa3;
+    --distant_gray : #1b2430;
+}
+
 
 body {
     background-color: var(--cor_fundo);
@@ -61,8 +54,9 @@ header {
     margin-bottom: 30px;
 
     font-size: 2.3em;
-    color: white;
+    color: var(--distant_gray);
 }
+
 
 #siga:hover {
     cursor: pointer;
@@ -308,15 +302,4 @@ footer img:hover {
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
     
     transform: scale(1.1);
-}
-
-/* animacoes */
-
-@keyframes subir {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-25px);
-    }
 }
