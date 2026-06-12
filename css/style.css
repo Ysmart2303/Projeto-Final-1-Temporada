@@ -161,6 +161,7 @@ header a {
     justify-content: center;
     align-items: end;
 
+    transform: translateY(0);
 }
 
 .quadro:hover {
@@ -171,7 +172,6 @@ header a {
     
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 
-    animation: subirNome ease 0.3s;
 }
 
 .quadro:active {
@@ -199,10 +199,10 @@ header a {
 
 #ds {
     background: url(/img/logos/ds2.png) center;
-
+    
     background-size: 500px;
     background-repeat: no-repeat;
-
+    
     background-color: var(--hemlock);
 }
 
@@ -213,7 +213,7 @@ header a {
     
     background-size: 200px;
     background-repeat: no-repeat;
-
+    
     background-color: var(--hemlock);
 }
 #sec {
@@ -250,23 +250,23 @@ header a {
 /* hover dos gundos */
 
 #ds:hover {
-
+    
     background-color: #565e8b;
 }
 #qm:hover {
-
+    
     background-color: #689670;
 }
 #sec:hover {
-
+    
     background-color: #92518f;
 }
 #log:hover {
-
+    
     background-color: #428894;
 }
 #tex:hover {
-
+    
     background-color: #94734e;
 }
 /* class escondida */
@@ -282,10 +282,10 @@ footer {
     align-items: center;
     justify-content: center;
     user-select: none;
-
+    
     margin-top: auto;
     margin-bottom: 10px;
-
+    
 }
 
 footer img {
@@ -303,11 +303,11 @@ footer img:hover {
 
 /* animacoes */
 
-@keyframes subirNome {
+@keyframes subir {
     from {
-        align-items: end;
+        transform: translateY(0);
     }
     to {
-        align-items: center;
+        transform: translateY(-25px);
     }
 }
