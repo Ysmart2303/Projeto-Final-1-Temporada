@@ -9,10 +9,10 @@ app.use(express.json());
 
 // Conexão com o banco
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "127.0.0.1",
     port: 3307,
     user: "root",
-    password: "",
+    password: "admin",
     database: "escola"
 });
 

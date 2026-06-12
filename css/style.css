@@ -109,6 +109,15 @@ header a {
     left: 10px;
     top: 10px;
 }
+
+/* togle  */
+
+#bnt-toggle {
+    position: absolute;
+    top: 37px;
+    right: 120px;
+}
+
 /* bem findo */
 
 .bem_vindo {
