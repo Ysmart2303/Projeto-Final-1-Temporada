@@ -221,4 +221,3 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 console.log("Só Jesus na causa 2 aqui termina o script.js");
-

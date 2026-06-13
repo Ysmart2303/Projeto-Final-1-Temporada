@@ -96,12 +96,16 @@ header {
     transform: scale(0.9);
 }
 
-header a {
+header img {
     transition: 0.3s ease;
 
     position: absolute;
     left: 10px;
     top: 10px;
+}
+
+header img:hover {
+    cursor: pointer;
 }
 
 /* togle  */
