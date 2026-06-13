@@ -143,9 +143,43 @@ window.toggleDarkMode = function toggleDarkMode() {
 
     const botao = document.getElementById("bnt-toggle");
     if (botao) botao.textContent = nextTheme === "dark" ? "Dark" : "Light";
+
+
+};
+
+// Sidebar (aba lateral) do tema
+window.abrirSidebar = function abrirSidebar(event) {
+    // se vier de um link, evitar navegação
+    if (event && typeof event.preventDefault === 'function') event.preventDefault();
+
+    const overlay = document.getElementById("sidebar-overlay");
+    const sidebar = document.getElementById("sidebar");
+
+    if (overlay) overlay.classList.remove("hidden");
+    if (sidebar) {
+        sidebar.classList.remove("hidden");
+        sidebar.setAttribute("aria-hidden", "false");
+    }
+};
+
+window.fecharSidebar = function fecharSidebar() {
+    const overlay = document.getElementById("sidebar-overlay");
+    const sidebar = document.getElementById("sidebar");
+
+    if (overlay) overlay.classList.add("hidden");
+    if (sidebar) {
+        sidebar.classList.add("hidden");
+        sidebar.setAttribute("aria-hidden", "true");
+    }
 };
 
 window.addEventListener("DOMContentLoaded", () => {
+
+    // handler do botão de tema dentro da sidebar
+    const botaoTema = document.getElementById("bnt-toggle");
+    if (botaoTema) botaoTema.onclick = () => window.toggleDarkMode();
+
+
     // aplicar tema salvo
     try {
         const savedTheme = localStorage.getItem("theme");

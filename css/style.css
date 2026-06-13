@@ -303,3 +303,55 @@ footer img:hover {
     
     transform: scale(1.1);
 }
+
+/* Sidebar (aba lateral) */
+
+#sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* quando visível (sem usar JS para animar display) */
+#sidebar-overlay:not(.hidden) {
+    opacity: 1;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 260px;
+
+    background-color: var(--marine_blue);
+    border-right: 4px solid var(--manor_blue);
+
+
+    z-index: 1000;
+    padding-top: 80px;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.25s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#sidebar:not(.hidden) {
+    transform: translateX(0);
+}
+
+
+/* ajusta o botão da sidebar */
+#sidebar .bnt {
+    position: static;
+    width: 140px;
+    height: 40px;
+    border-radius: 20px;
+}
+

@@ -12,11 +12,13 @@
     <header>
         
         <nav class="menu">
-                <a href="https://evaldo-comp.github.io/dsdisciplines/" target="_blank"><img src="/img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
+                <a href="" target="_blank" onclick="abrirSidebar(event)"><img id="header-logo" src="/img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
+
             <button id="bnt-login" class="bnt">Login</button>
         </nav>
         
-        <button id="bnt-toggle" class="bnt" onclick="toggleDarkMode()">Dark</button>
+        <!-- botão de tema agora fica na sidebar -->
+
         
         <h1 id="siga"><div onclick="falarnome()">S.I.G.A. MCVM</div></h1>
         
@@ -63,6 +65,10 @@
                 <div class="nome_curso">Têxtil</div>
 
             </div>
+
+        </section>
+        
+        <section id="">
 
         </section>
 
@@ -192,9 +198,16 @@
 
         <!-- <button onclick="mos()">itmrmn</button> -->
 
+        <!-- Sidebar de tema -->
+        <div id="sidebar-overlay" class="hidden" onclick="fecharSidebar()"></div>
+        <aside id="sidebar" class="hidden" aria-hidden="true">
+            <button id="bnt-toggle" class="bnt" type="button">Dark</button>
+        </aside>
+
         <footer onclick="voltar('creditos')">     
                 <img src="/img/footer/ds_footer_logo2.png" alt="">
         </footer>
+
 
         <script src="/script/script.js"></script>
 
