@@ -338,9 +338,13 @@ footer img:hover {
     transition: transform 0.25s ease;
 
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+gap: 18px;
 }
+
+
 
 #sidebar:not(.hidden) {
     transform: translateX(0);
