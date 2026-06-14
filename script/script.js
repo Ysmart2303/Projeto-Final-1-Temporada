@@ -152,7 +152,7 @@ function normalizarLinkExterno(link) {
     return `https://${linkLimpo}`;
 }
 
-async function carregarConteudosPublicos(curso, ano, bimestre, targetBimestreSection) {
+async function carregarConteudosPublicos(curso, ano, bimestre, targetAnoSection) {
     const codigoCurso = codigoBancoPorCurso[curso.toLowerCase()] || curso.toUpperCase();
     const params = new URLSearchParams({
         curso: codigoCurso,
@@ -160,18 +160,66 @@ async function carregarConteudosPublicos(curso, ano, bimestre, targetBimestreSec
         bimestre
     });
 
+    // Importante: as páginas con*.html têm ids diferentes para cada curso.
+    // Então buscamos o bimestre dentro do bloco do ano selecionado, pelo padrão do id real.
+    const prefixo = (targetAnoSection && targetAnoSection.querySelector('section[id]'))
+        ? (targetAnoSection.querySelector('section[id]').id.split('-')[0] || "")
+        : "";
+
+    const targetBimestreSection = prefixo
+        ? targetAnoSection.querySelector(`section[id^="${prefixo}-${ano}-b${bimestre}"]`)
+        : targetAnoSection.querySelector(`section[id$="-b${bimestre}"]`);
+
     try {
         const resposta = await fetch(`${API_URL}/api/conteudos/publico?${params.toString()}`);
         if (!resposta.ok) throw new Error("Erro ao buscar conteudos");
 
         const dados = await resposta.json();
-        const conteudo = targetBimestreSection.querySelector(".quadroConteudos > div");
-        const atividade = targetBimestreSection.querySelector(".quadroAtividades > div");
 
-        if (conteudo) conteudo.innerHTML = montarCardPublico(dados.conteudo, "Nenhum conteudo cadastrado.");
-        if (atividade) atividade.innerHTML = montarCardPublico(dados.atividade, "Nenhuma atividade cadastrada.");
+        // Se não achou o bimestre por algum motivo, não quebra a página.
+        if (!targetBimestreSection) return;
+
+        const quadroConteudos = targetBimestreSection.querySelector(".quadroConteudos");
+        const quadroAtividades = targetBimestreSection.querySelector(".quadroAtividades");
+
+        const listaConteudos = Array.isArray(dados.conteudos) ? dados.conteudos : [];
+        const listaAtividades = Array.isArray(dados.atividades) ? dados.atividades : [];
+
+        // CONTEÚDOS: cria 1 quadrado por item (quando existir)
+        if (quadroConteudos && listaConteudos.length) {
+            const placeholder = Array.from(quadroConteudos.children).find(
+                (el) => el && el.textContent && el.textContent.trim().toLowerCase() === "null"
+            );
+            if (placeholder) placeholder.remove();
+
+            listaConteudos.forEach((item) => {
+                const novoId = `conteudo-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+                const div = document.createElement("div");
+                div.id = novoId;
+                div.innerHTML = montarCardPublico(item, "Nenhum conteudo cadastrado.");
+                quadroConteudos.appendChild(div);
+            });
+        }
+
+        // ATIVIDADES: cria 1 quadrado por item (quando existir)
+        if (quadroAtividades && listaAtividades.length) {
+            const placeholder = Array.from(quadroAtividades.children).find(
+                (el) => el && el.textContent && el.textContent.trim().toLowerCase() === "null"
+            );
+            if (placeholder) placeholder.remove();
+
+            listaAtividades.forEach((item) => {
+                const novoId = `atividade-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+                const div = document.createElement("div");
+                div.id = novoId;
+                div.innerHTML = montarCardPublico(item, "Nenhuma atividade cadastrada.");
+                quadroAtividades.appendChild(div);
+            });
+        }
     } catch (err) {
         console.error(err);
+        if (!targetBimestreSection) return;
+
         const conteudo = targetBimestreSection.querySelector(".quadroConteudos > div");
         const atividade = targetBimestreSection.querySelector(".quadroAtividades > div");
         if (conteudo) conteudo.innerHTML = "Nao foi possivel carregar o conteudo.";
@@ -255,7 +303,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-            carregarConteudosPublicos(curso, ano, bimestre, targetBimestreSection);
+            carregarConteudosPublicos(curso, ano, bimestre, targetAnoSection);
         }
     }
 

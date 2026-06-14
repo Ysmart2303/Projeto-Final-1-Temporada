@@ -192,6 +192,22 @@ app.get("/api/conteudos", async (req, res) => {
     }
 });
 
+app.get("/api/conteudos/curso/:curso", async (req, res) => {
+    try {
+        const [rows] = await pool.query(
+            `SELECT curso_usuario, tipo, serie, bimestre, assunto, link, texto, atualizado_em
+             FROM conteudos
+             WHERE curso_usuario = ?
+             ORDER BY serie, bimestre, tipo`,
+            [String(req.params.curso).toUpperCase()]
+        );
+
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ mensagem: "Erro ao listar conteudos.", erro: err.message });
+    }
+});
+
 app.post("/api/conteudos", async (req, res) => {
     const { curso, serie, bimestre, tipo, assunto = "", link = "", texto = "" } = req.body;
 
@@ -221,6 +237,30 @@ app.post("/api/conteudos", async (req, res) => {
     }
 });
 
+app.delete("/api/conteudos", async (req, res) => {
+    const { curso, serie, bimestre, tipo } = req.query;
+
+    if (!curso || !serie || !bimestre || !tipo) {
+        return res.status(400).json({ mensagem: "Informe curso, serie, bimestre e tipo." });
+    }
+
+    try {
+        const [result] = await pool.query(
+            `DELETE FROM conteudos
+             WHERE curso_usuario = ? AND serie = ? AND bimestre = ? AND tipo = ?`,
+            [String(curso).toUpperCase(), Number(serie), Number(bimestre), tipo]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ mensagem: "Registro nao encontrado." });
+        }
+
+        res.json({ sucesso: true });
+    } catch (err) {
+        res.status(500).json({ mensagem: "Erro ao excluir conteudo.", erro: err.message });
+    }
+});
+
 app.get("/api/conteudos/publico", async (req, res) => {
     const { curso, serie, bimestre } = req.query;
 
@@ -232,13 +272,17 @@ app.get("/api/conteudos/publico", async (req, res) => {
         const [rows] = await pool.query(
             `SELECT tipo, assunto, link, texto
              FROM conteudos
-             WHERE curso_usuario = ? AND serie = ? AND bimestre = ?`,
+             WHERE curso_usuario = ? AND serie = ? AND bimestre = ?
+             ORDER BY atualizado_em DESC`,
             [String(curso).toUpperCase(), Number(serie), Number(bimestre)]
         );
 
+        const conteudos = rows.filter((item) => item.tipo === "conteudo");
+        const atividades = rows.filter((item) => item.tipo === "atividade");
+
         res.json({
-            conteudo: rows.find((item) => item.tipo === "conteudo") || null,
-            atividade: rows.find((item) => item.tipo === "atividade") || null
+            conteudos,
+            atividades
         });
     } catch (err) {
         res.status(500).json({ mensagem: "Erro ao buscar conteudos publicos.", erro: err.message });

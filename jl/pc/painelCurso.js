@@ -27,6 +27,7 @@ document.querySelector(".periodos1").style.display = "none";
 document.getElementById("voltarSeries").style.display = "none";
 
 let serieAtual = 0;
+let registrosCadastrados = [];
 
 function abrirSerie(numero) {
     serieAtual = numero;
@@ -85,6 +86,43 @@ async function buscarRegistro(tipo, bimestre) {
     const resposta = await fetch(`${API_URL}/api/conteudos?${params.toString()}`);
     if (!resposta.ok) throw new Error("Erro ao buscar dados");
     return await resposta.json();
+}
+
+function textoTipo(tipo) {
+    return tipo === "conteudo" ? "Conteudo" : "Atividade";
+}
+
+function mostrarEditorRegistro(tipo, bimestre, dados) {
+    const area = document.getElementById("conteudoBi");
+    document.getElementById("listaSe").style.display = "none";
+    document.getElementById("listaBi").style.display = "none";
+    document.getElementById("voltarSeries").style.display = "none";
+    document.querySelector(".periodos1").style.display = "block";
+    document.getElementById("serieAtual").style.display = "block";
+    document.getElementById("serieAtual").innerText = `${serieAtual} Serie - Bimestre ${bimestre}`;
+
+    const ehConteudo = tipo === "conteudo";
+    const assuntoId = ehConteudo ? "assunto" : "assuntoAtividade";
+    const linkId = ehConteudo ? "linkAjuda" : "linkAtividade";
+    const textoId = ehConteudo ? "textoConteudo" : "textoAtividade";
+    const salvarFn = ehConteudo ? "salvarConteudo" : "salvarAtividade";
+
+    area.innerHTML = `
+        <div class="painelEdicao">
+            <h2>${textoTipo(tipo)} - ${serieAtual} Serie - Bimestre ${bimestre}</h2>
+            <input type="text" id="${assuntoId}" placeholder="Assunto">
+            <input type="url" id="${linkId}" placeholder="Link de ajuda">
+            <textarea id="${textoId}" placeholder="Digite o texto..."></textarea>
+            <div class="botoesEdicao">
+                <button onclick="${salvarFn}(${bimestre})">Salvar alteracao</button>
+                <button onclick="voltarParaGerenciamento()">Voltar para lista</button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById(assuntoId).value = dados?.assunto || "";
+    document.getElementById(linkId).value = dados?.link || "";
+    document.getElementById(textoId).value = dados?.texto || "";
 }
 
 async function abrirConteudos(bimestre) {
@@ -183,6 +221,7 @@ async function salvarConteudo(bimestre) {
             texto: document.getElementById("textoConteudo").value.trim()
         });
         alert("Conteudo salvo!");
+        await voltarParaGerenciamento();
     } catch (err) {
         alert(err.message);
         console.error(err);
@@ -197,6 +236,102 @@ async function salvarAtividade(bimestre) {
             texto: document.getElementById("textoAtividade").value.trim()
         });
         alert("Atividade salva!");
+        await voltarParaGerenciamento();
+    } catch (err) {
+        alert(err.message);
+        console.error(err);
+    }
+}
+
+async function voltarParaGerenciamento() {
+    document.getElementById("conteudoBi").innerHTML = "";
+    document.getElementById("listaBi").style.display = "flex";
+    document.getElementById("listaSe").style.display = "flex";
+    document.querySelector(".periodos1").style.display = "none";
+    document.getElementById("voltarSeries").style.display = "none";
+    document.getElementById("serieAtual").style.display = "none";
+    serieAtual = 0;
+    await listarRegistros();
+}
+
+async function listarRegistros() {
+    const lista = document.getElementById("listaRegistros");
+    if (!lista) return;
+
+    lista.innerHTML = "<p>Carregando registros...</p>";
+
+    try {
+        const resposta = await fetch(`${API_URL}/api/conteudos/curso/${encodeURIComponent(cursoAtual.usuario)}`);
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(dados.mensagem || "Erro ao carregar registros.");
+        }
+
+        registrosCadastrados = dados;
+
+        if (dados.length === 0) {
+            lista.innerHTML = "<p>Nenhum conteudo ou atividade cadastrado ainda.</p>";
+            return;
+        }
+
+        lista.innerHTML = dados.map((registro, index) => `
+            <article class="registroCard">
+                <div class="registroInfo">
+                    <span>${textoTipo(registro.tipo)}</span>
+                    <h3>${registro.assunto || "Sem assunto"}</h3>
+                    <p>${registro.serie} Serie - Bimestre ${registro.bimestre}</p>
+                    <p>${registro.texto || "Sem texto cadastrado."}</p>
+                    ${registro.link ? `<a href="${registro.link}" target="_blank" rel="noopener noreferrer">Abrir link</a>` : ""}
+                </div>
+                <div class="registroAcoes">
+                    <button type="button" onclick="editarRegistro(${index})">Editar</button>
+                    <button type="button" class="botaoExcluir" onclick="excluirRegistro(${index})">Excluir</button>
+                </div>
+            </article>
+        `).join("");
+    } catch (err) {
+        lista.innerHTML = "<p>Nao foi possivel carregar os registros.</p>";
+        console.error(err);
+    }
+}
+
+function editarRegistro(index) {
+    const registro = registrosCadastrados[index];
+    if (!registro) return;
+
+    serieAtual = Number(registro.serie);
+    mostrarEditorRegistro(registro.tipo, Number(registro.bimestre), registro);
+}
+
+async function excluirRegistro(index) {
+    const registro = registrosCadastrados[index];
+    if (!registro) return;
+
+    const confirmar = confirm(
+        `Excluir ${textoTipo(registro.tipo).toLowerCase()} "${registro.assunto || "sem assunto"}"?`
+    );
+    if (!confirmar) return;
+
+    const params = new URLSearchParams({
+        curso: cursoAtual.usuario,
+        serie: registro.serie,
+        bimestre: registro.bimestre,
+        tipo: registro.tipo
+    });
+
+    try {
+        const resposta = await fetch(`${API_URL}/api/conteudos?${params.toString()}`, {
+            method: "DELETE"
+        });
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(dados.mensagem || "Erro ao excluir registro.");
+        }
+
+        alert("Registro excluido!");
+        await listarRegistros();
     } catch (err) {
         alert(err.message);
         console.error(err);
@@ -209,3 +344,5 @@ function salvarEmail() {
     localStorage.setItem("emailAtual", email);
     alert("Email salvo neste navegador!");
 }
+
+listarRegistros();
