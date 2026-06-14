@@ -1,259 +1,178 @@
+const API_URL = window.location.port === "3000" ? window.location.origin : "http://localhost:3000";
 let tentativas = 0;
+let admins = [];
 
+function mostrarErro(mensagem) {
+    const area = document.getElementById("errologin");
+    if (area) area.innerText = mensagem;
+}
 
+function cursoParaStorage(admin) {
+    return {
+        id: admin.id,
+        nomeCurso: admin.nomeCurso,
+        nomeProfessor: admin.nomeProfessor,
+        usuario: admin.usuario,
+        email: admin.email,
+        pagina: admin.pagina || "/jl/pc/painelCurso.html"
+    };
+}
 
 function teste() {
-    alert("funciona misera");
+    alert("funciona");
 }
 
-//#FUNÇÃO DE FAZER LOGIN CO NUMERO DE tentativas.
-//senhas temporarias
-let admins = [
-{
-    nomeCurso: "Desenvolvimento de Sistemas",
-    nomeProfessor: "Léa",
-    usuario: "DS",
-    senha: "123",
-    email: "ds@escola.com",
-    pagina: "/jl/pc/painelCurso.html"
-},
-{
-    nomeCurso: "Química",
-    nomeProfessor: "Professor Química",
-    usuario: "QUIMICA",
-    senha: "456",
-    email: "quimica@escola.com",
-    pagina: "/jl/pc/painelCurso.html"
-},
-
-    {
-    nomeCurso: "Logística",
-    nomeProfessor: "Professor Logística",
-    usuario: "LOG",
-    senha: "789",
-    email: "logistica@escola.com",
-    pagina: "/jl/pc/painelCurso.html"
-},
-{
-    nomeCurso: "Têxtil",
-    nomeProfessor: "Professor Têxtil",
-    usuario: "TEXTIL",
-    senha: "101",
-    email: "textil@escola.com",
-    pagina: "/jl/pc/painelCurso.html"
-}
-];
-let adminsSalvos = localStorage.getItem("admins");
-
-if(adminsSalvos){
-
-    admins = JSON.parse(adminsSalvos);
-}
-function fazerLogin(){
-
-    alert("LOGIN NOVO");
-    let user = document.getElementById("userInput").value.trim();
-    let senhaDigitada = document.getElementById("senhaInput").value.trim();
-
-    let admEncontrado = admins.find(admin =>
-        admin.usuario === user && admin.senha === senhaDigitada
-    );
-    if(admEncontrado){
-        
-        console.log("ADM ENCONTRADO:");
-console.log(admEncontrado);
-
-localStorage.setItem(
-    "cursoAtual",
-    JSON.stringify(admEncontrado)
-);
-
-console.log("SALVO:");
-console.log(
-    localStorage.getItem("cursoAtual")
-);
-localStorage.setItem(
-    "professorAtual",
-    admEncontrado.nomeProfessor
-);
-
-localStorage.setItem(
-    "emailAtual",
-    admEncontrado.email
-);
-alert(
-    localStorage.getItem("cursoAtual")
-);
-
-    document.getElementById("loginTela").style.display = "none";
-    document.getElementById("carregando").style.display = "block";
-
-    console.log(admEncontrado);
-
-
-console.log(
-    localStorage.getItem("cursoAtual")
-);
-
-    setTimeout(() => {
-        window.location.href = admEncontrado.pagina;
-    }, 1500);
-}else{
-        tentativas++;
-        document.getElementById("errologin").innerText = "Senha ou Usuario Incorretos! Tente novamente. Suas tentativas: " + tentativas + "/3"
-    }
-    if(tentativas >= 3){
-        document.getElementById("errologin").innerText =
-        "Muitas tentativas. Recarregue a página.";
+async function fazerLogin() {
+    if (tentativas >= 3) {
+        mostrarErro("Muitas tentativas. Recarregue a pagina.");
         return;
     }
-}
-function cadastroCurso(){
 
+    const user = document.getElementById("userInput").value.trim();
+    const senhaDigitada = document.getElementById("senhaInput").value.trim();
+
+    if (!user || !senhaDigitada) {
+        mostrarErro("Digite usuario e senha.");
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`${API_URL}/api/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ usuario: user.toUpperCase(), senha: senhaDigitada })
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok || !dados.sucesso) {
+            tentativas++;
+            mostrarErro(`Senha ou usuario incorretos! Tentativas: ${tentativas}/3`);
+            return;
+        }
+
+        const cursoAtual = cursoParaStorage(dados.admin);
+        localStorage.setItem("cursoAtual", JSON.stringify(cursoAtual));
+        localStorage.setItem("professorAtual", cursoAtual.nomeProfessor);
+        localStorage.setItem("emailAtual", cursoAtual.email);
+
+        document.getElementById("loginTela").style.display = "none";
+        document.getElementById("carregando").style.display = "block";
+
+        setTimeout(() => {
+            window.location.href = cursoAtual.pagina;
+        }, 800);
+    } catch (err) {
+        mostrarErro("Nao foi possivel conectar ao servidor. Inicie o backend.");
+        console.error(err);
+    }
+}
+
+function cadastroCurso() {
     document.getElementById("painelCadastro").style.display = "block";
-
     document.getElementById("loginTela").style.display = "none";
 }
 
+async function criarCurso() {
+    const nomeCurso = document.getElementById("cursoInput").value.trim();
+    const nomeProfessor = document.getElementById("nomeProfessor").value.trim();
+    const usuario = document.getElementById("usuarioCurso").value.trim();
+    const senha = document.getElementById("senhaCurso").value.trim();
+    const email = document.getElementById("emailCurso").value.trim();
 
-function criarCurso(){
-
-    let nomeCurso =
-        document.getElementById("cursoInput").value;
-
-    let nomeProfessor =
-    document.getElementById("nomeProfessor").value;
-
-    let usuario =
-        document.getElementById("usuarioCurso").value;
-
-    let senha =
-        document.getElementById("senhaCurso").value;
-
-    let email =
-        document.getElementById("emailCurso").value;
-
-    if(
-        !email.includes("@") ||
-        !email.includes(".")
-    ){
-        alert("Digite um email válido!");
+    if (!nomeCurso || !nomeProfessor || !usuario || !senha || !email) {
+        alert("Preencha todos os campos!");
         return;
     }
 
-    let novoCurso = {
-
-    nomeCurso: nomeCurso,
-
-    nomeProfessor: nomeProfessor,
-
-    usuario: usuario,
-
-    senha: senha,
-
-    email: email,
-
-    pagina: "/jl/pc/painelCurso.html"
-};
-    let existe = admins.find(
-    admin => admin.email === email
-);
-
-if(existe){
-
-    alert("Este email já está cadastrado!");
-
-    return;
-}
-
-    admins.push(novoCurso);
-    localStorage.setItem(
-    "admins",
-    JSON.stringify(admins)
-);
-
-    alert("Curso criado com sucesso!");
-
-    
-}
-function removerCurso(usuario){
-
-    let confirmar = confirm(
-`⚠️ ATENÇÃO
-
-Você está prestes a excluir este curso.
-
-Essa ação não poderá ser desfeita.
-
-Deseja continuar?`
-);
-
-    if(!confirmar){
+    if (!email.includes("@") || !email.includes(".")) {
+        alert("Digite um email valido!");
         return;
     }
 
-    admins = admins.filter(
-        admin => admin.usuario !== usuario
-    );
+    try {
+        const resposta = await fetch(`${API_URL}/api/cursos`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nomeCurso, nomeProfessor, usuario, senha, email })
+        });
 
-    localStorage.setItem(
-        "admins",
-        JSON.stringify(admins)
-    );
+        const dados = await resposta.json();
+        if (!resposta.ok) {
+            alert(dados.mensagem || "Erro ao cadastrar curso.");
+            return;
+        }
 
-    verCursos();
-
-    alert("Curso removido com sucesso!");
+        alert("Curso criado com sucesso!");
+        await verCursos();
+    } catch (err) {
+        alert("Nao foi possivel conectar ao servidor.");
+        console.error(err);
+    }
 }
-function voltarLogin(){
 
+async function removerCurso(usuario) {
+    const confirmar = confirm(
+        "ATENCAO\n\nVoce esta prestes a excluir este curso.\nEssa acao nao podera ser desfeita.\n\nDeseja continuar?"
+    );
+
+    if (!confirmar) return;
+
+    try {
+        const resposta = await fetch(`${API_URL}/api/cursos/${encodeURIComponent(usuario)}`, {
+            method: "DELETE"
+        });
+
+        if (!resposta.ok) {
+            const dados = await resposta.json();
+            alert(dados.mensagem || "Erro ao remover curso.");
+            return;
+        }
+
+        await verCursos();
+        alert("Curso removido com sucesso!");
+    } catch (err) {
+        alert("Nao foi possivel conectar ao servidor.");
+        console.error(err);
+    }
+}
+
+function voltarLogin() {
     document.getElementById("painelCadastro").style.display = "none";
-
     document.getElementById("loginTela").style.display = "block";
 }
-function atualizarCursos(){
 
-    let area = document.getElementById("listaCursos");
-
-    area.innerHTML = "";
-
-    admins.forEach(admin => {
-
-        area.innerHTML += `
-
-        <div class="cardCurso">
-
-            <h3>${admin.nomeCurso}</h3>
-
-            <button onclick="removerCurso('${admin.usuario}')">
-                Remover
-            </button>
-
-        </div>
-
-        `;
-    });
+async function carregarCursos() {
+    const resposta = await fetch(`${API_URL}/api/cursos`);
+    if (!resposta.ok) throw new Error("Erro ao carregar cursos");
+    admins = await resposta.json();
+    return admins;
 }
 
-function verCursos(){
+async function atualizarCursos() {
+    await verCursos();
+}
 
-    let lista = document.getElementById("listaCursos");
-
+async function verCursos() {
+    const lista = document.getElementById("listaCursos");
     lista.innerHTML = "<h3>Cursos Cadastrados</h3>";
 
-    admins.forEach(admin => {
+    try {
+        await carregarCursos();
 
-        lista.innerHTML += `
-            <div class="cursoCard">
-
-                <p><strong>Curso:</strong> ${admin.nomeCurso}</p>
-
-
-                <button onclick="removerCurso('${admin.usuario}')">
-                    Remover
-                </button>
-
-            </div>
-        `;
-    });
+        admins.forEach((admin) => {
+            lista.innerHTML += `
+                <div class="cursoCard">
+                    <p><strong>Curso:</strong> ${admin.nomeCurso}</p>
+                    <p><strong>Usuario:</strong> ${admin.usuario}</p>
+                    <button onclick="removerCurso('${admin.usuario}')">
+                        Remover
+                    </button>
+                </div>
+            `;
+        });
+    } catch (err) {
+        lista.innerHTML += "<p>Nao foi possivel carregar os cursos. Inicie o backend.</p>";
+        console.error(err);
+    }
 }

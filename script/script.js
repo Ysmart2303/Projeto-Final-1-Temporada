@@ -1,25 +1,29 @@
-console.log("Só Jesus na causa 1 / aqui começa o script.js");
-
 const botaoBase = document.getElementById("bnt-login");
+const API_URL = window.location.port === "3000" ? window.location.origin : "http://localhost:3000";
 
-// VARIÁVEIS GLOBAIS PARA RASTREAMENTO DE NAVEGAÇÃO
 let cursoSelecionado = null;
 let anoSelecionado = null;
 let bimestreSelecionado = null;
 
-// MAPEAMENTO DE CURSOS PARA SIGLA
 const mapaCursos = {
-    "ds": "DS",
-    "qm": "Qm",
-    "sec": "Sec",
-    "log": "Logi",
-    "tex": "Tex"
+    ds: "DS",
+    qm: "QM",
+    sec: "SEC",
+    log: "LOG",
+    tex: "TEX"
 };
 
-// FUNÇÃO PARA NAVEGAR PARA A PÁGINA DO BIMESTRE
+const codigoBancoPorCurso = {
+    ds: "DS",
+    qm: "QM",
+    sec: "SEC",
+    log: "LOG",
+    tex: "TEX"
+};
+
 function irParaBimestre(numeroBimestre) {
     if (!cursoSelecionado || !anoSelecionado) {
-        alert("Erro: curso ou ano não selecionado.");
+        alert("Erro: curso ou ano nao selecionado.");
         return;
     }
 
@@ -37,7 +41,7 @@ function irParaBimestre(numeroBimestre) {
     if (arquivoCurso) {
         window.location.href = `/html/conteudos/${arquivoCurso}?curso=${cursoSelecionado}&ano=${anoSelecionado}&bimestre=${numeroBimestre}`;
     } else {
-        alert("Página não configurada para esta combinação de curso, ano e bimestre.");
+        alert("Pagina nao configurada para esta combinacao de curso, ano e bimestre.");
     }
 }
 
@@ -45,12 +49,9 @@ function voltar(index) {
     const paginas = {
         home: "/html/index.html",
         creditos: "/html/creditos.html",
-
         login: "/jl/pj/pj.html",
-
         esSe: "/html/index.html",
         esSeDS: "/html/index.html",
-
         conDS: "/html/conteudos/conDS.html",
         conQm: "/html/conteudos/conQm.html",
         conSec: "/html/conteudos/conSec.html",
@@ -65,11 +66,10 @@ function voltar(index) {
     }
 }
 
-// Base de tudo
 function mostrarTela(telaId) {
     const telas = ["s1", "s2", "bimestre", "bimestre2", "bimestre3", "ConEAtiv"];
 
-    telas.forEach(id => {
+    telas.forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.classList.add("hidden");
     });
@@ -77,42 +77,37 @@ function mostrarTela(telaId) {
     const tela = document.getElementById(telaId);
     if (tela) tela.classList.remove("hidden");
 
-    let titulo = document.getElementById("escolhaHH");
-    let Subtitulo = document.getElementById("escolhaBB");
+    const titulo = document.getElementById("escolhaHH");
+    const subtitulo = document.getElementById("escolhaBB");
 
     if (telaId === "s1") {
+        if (!titulo || !subtitulo || !botaoBase) return;
         titulo.innerHTML = "Bem-vindo";
-        Subtitulo.innerHTML = "Escolha o curso que deseja";
-
+        subtitulo.innerHTML = "Escolha o curso que deseja";
         botaoBase.textContent = "Login";
         botaoBase.onclick = () => voltar("login");
-
     } else if (telaId === "s2") {
-        titulo.innerHTML = "Escolha a série que deseja";
-        Subtitulo.innerHTML = "";
-
+        if (!titulo || !subtitulo || !botaoBase) return;
+        titulo.innerHTML = "Escolha a serie que deseja";
+        subtitulo.innerHTML = "";
         botaoBase.textContent = "Voltar";
         botaoBase.onclick = () => mostrarTela("s1");
-
     } else if (telaId === "ConEAtiv") {
-        titulo.innerHTML = "Conteúdos";
-
+        if (titulo) titulo.innerHTML = "Conteudos";
     } else if (telaId === "bimestre" || telaId === "bimestre2" || telaId === "bimestre3") {
+        if (!titulo || !subtitulo || !botaoBase) return;
         titulo.innerHTML = "Escolha o bimestre";
-        Subtitulo.innerHTML = `${cursoSelecionado?.toUpperCase()} - ${anoSelecionado}º Ano`;
-
+        subtitulo.innerHTML = `${cursoSelecionado?.toUpperCase()} - ${anoSelecionado} Ano`;
         botaoBase.textContent = "Voltar";
         botaoBase.onclick = () => mostrarTela("s2");
     }
 }
 
-// RASTREAR CURSO SELECIONADO
 function selecionarCurso(nomeCurso) {
     cursoSelecionado = nomeCurso.toLowerCase();
     mostrarTela("s2");
 }
 
-// RASTREAR ANO SELECIONADO
 function selecionarAno(numeroAno) {
     anoSelecionado = numeroAno;
 
@@ -126,10 +121,64 @@ function selecionarAno(numeroAno) {
 }
 
 function falarnome() {
-    alert("Sistema integrado de Gestão Adêmica");
+    alert("Sistema Integrado de Gestao Academica");
 }
 
-// tema dark / light (global para funcionar com onclick no HTML)
+function montarCardPublico(dados, vazio) {
+    if (!dados) return vazio;
+
+    const linkExterno = normalizarLinkExterno(dados.link);
+    const link = dados.link
+        ? `<a href="${linkExterno}" target="_blank" rel="noopener noreferrer">Abrir link</a>`
+        : "";
+
+    return `
+        <article class="conteudoPublico">
+            <h2>${dados.assunto || "Sem assunto"}</h2>
+            <p>${dados.texto || "Sem texto cadastrado."}</p>
+            ${link}
+        </article>
+    `;
+}
+
+function normalizarLinkExterno(link) {
+    const linkLimpo = String(link || "").trim();
+    if (!linkLimpo) return "";
+
+    if (/^(https?:)?\/\//i.test(linkLimpo)) {
+        return linkLimpo.startsWith("//") ? `https:${linkLimpo}` : linkLimpo;
+    }
+
+    return `https://${linkLimpo}`;
+}
+
+async function carregarConteudosPublicos(curso, ano, bimestre, targetBimestreSection) {
+    const codigoCurso = codigoBancoPorCurso[curso.toLowerCase()] || curso.toUpperCase();
+    const params = new URLSearchParams({
+        curso: codigoCurso,
+        serie: ano,
+        bimestre
+    });
+
+    try {
+        const resposta = await fetch(`${API_URL}/api/conteudos/publico?${params.toString()}`);
+        if (!resposta.ok) throw new Error("Erro ao buscar conteudos");
+
+        const dados = await resposta.json();
+        const conteudo = targetBimestreSection.querySelector(".quadroConteudos > div");
+        const atividade = targetBimestreSection.querySelector(".quadroAtividades > div");
+
+        if (conteudo) conteudo.innerHTML = montarCardPublico(dados.conteudo, "Nenhum conteudo cadastrado.");
+        if (atividade) atividade.innerHTML = montarCardPublico(dados.atividade, "Nenhuma atividade cadastrada.");
+    } catch (err) {
+        console.error(err);
+        const conteudo = targetBimestreSection.querySelector(".quadroConteudos > div");
+        const atividade = targetBimestreSection.querySelector(".quadroAtividades > div");
+        if (conteudo) conteudo.innerHTML = "Nao foi possivel carregar o conteudo.";
+        if (atividade) atividade.innerHTML = "Nao foi possivel carregar a atividade.";
+    }
+}
+
 window.toggleDarkMode = function toggleDarkMode() {
     const currentTheme = document.documentElement.dataset.theme || "dark";
     const nextTheme = currentTheme === "dark" ? "light" : "dark";
@@ -138,19 +187,15 @@ window.toggleDarkMode = function toggleDarkMode() {
     try {
         localStorage.setItem("theme", nextTheme);
     } catch (e) {
-        // ignora
+        // Ignora navegadores sem localStorage.
     }
 
     const botao = document.getElementById("bnt-toggle");
     if (botao) botao.textContent = nextTheme === "dark" ? "Dark" : "Light";
-
-
 };
 
-// Sidebar (aba lateral) do tema
 window.abrirSidebar = function abrirSidebar(event) {
-    // se vier de um link, evitar navegação
-    if (event && typeof event.preventDefault === 'function') event.preventDefault();
+    if (event && typeof event.preventDefault === "function") event.preventDefault();
 
     const overlay = document.getElementById("sidebar-overlay");
     const sidebar = document.getElementById("sidebar");
@@ -174,13 +219,9 @@ window.fecharSidebar = function fecharSidebar() {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-
-    // handler do botão de tema dentro da sidebar
     const botaoTema = document.getElementById("bnt-toggle");
     if (botaoTema) botaoTema.onclick = () => window.toggleDarkMode();
 
-
-    // aplicar tema salvo
     try {
         const savedTheme = localStorage.getItem("theme");
         const initialTheme = savedTheme === "light" ? "light" : "dark";
@@ -189,10 +230,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const botao = document.getElementById("bnt-toggle");
         if (botao) botao.textContent = initialTheme === "dark" ? "Dark" : "Light";
     } catch (e) {
-        // ignora
+        // Ignora navegadores sem localStorage.
     }
 
-    // lógica de telas
     const params = new URLSearchParams(window.location.search);
     const curso = params.get("curso");
     const ano = params.get("ano");
@@ -200,13 +240,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (curso && ano && bimestre) {
         const targetAnoId = `${ano}ano`;
-        const targetBimestreId = `${curso.toUpperCase()}-${ano}-b${bimestre}`;
-
+        const siglaVisual = mapaCursos[curso.toLowerCase()] || curso.toUpperCase();
+        const targetBimestreId = `${siglaVisual}-${ano}-b${bimestre}`;
         const targetAnoSection = document.getElementById(targetAnoId);
         const targetBimestreSection = document.getElementById(targetBimestreId);
 
         if (targetAnoSection && targetBimestreSection) {
-            document.querySelectorAll("section[id]").forEach(section => {
+            document.querySelectorAll("section[id]").forEach((section) => {
                 const sectionId = section.id;
                 if (sectionId === targetAnoId || sectionId === targetBimestreId) {
                     section.classList.remove("hidden");
@@ -214,10 +254,12 @@ window.addEventListener("DOMContentLoaded", () => {
                     section.classList.add("hidden");
                 }
             });
+
+            carregarConteudosPublicos(curso, ano, bimestre, targetBimestreSection);
         }
     }
 
-    mostrarTela("s1");
+    if (document.getElementById("s1")) {
+        mostrarTela("s1");
+    }
 });
-
-console.log("Só Jesus na causa 2 aqui termina o script.js");

@@ -29,10 +29,64 @@ Principais arquivos do front-end:
 - **Node.js** com **Express**
 - **MySQL** via **mysql2**
 - **CORS** para permitir chamadas da API
+- **Docker Compose** para subir um MySQL local do projeto
 
 Principais arquivos do backend:
 - `backend/server.js`
 - `backend/package.json`
+- `docker-compose.yml`
+- `database/schema.sql`
+
+---
+
+## Como rodar com banco local
+
+1. Suba o MySQL local do projeto:
+
+```bash
+docker compose up -d
+```
+
+2. Inicie a API:
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+3. Abra o site pelo servidor Node:
+
+```text
+http://localhost:3000
+```
+
+O banco usa estes dados padrao:
+
+```text
+host: 127.0.0.1
+porta: 3307
+usuario: root
+senha: admin
+banco: escola
+```
+
+Logins iniciais:
+
+```text
+DS / 123
+QM / 456
+LOG / 789
+TEX / 101
+SEC / 202
+```
+
+Se precisar recriar o banco do zero, rode:
+
+```bash
+docker compose down -v
+docker compose up -d
+```
 
 ---
 

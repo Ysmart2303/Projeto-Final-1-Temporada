@@ -15,8 +15,9 @@
 
 
 .quadroConteudos {
-    width: 150px;
-    height: 150px;
+    width: min(90vw, 760px);
+    min-height: 150px;
+    padding: 20px;
     
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
@@ -48,8 +49,9 @@
 }
 
 .quadroAtividades {
-    width: 150px;
-    height: 150px;
+    width: min(90vw, 760px);
+    min-height: 150px;
+    padding: 20px;
 
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
@@ -67,4 +69,27 @@
     color: white;
     text-align: center;margin-top: 30px;
     margin-bottom: 20px;
+}
+
+.conteudoPublico {
+    width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.conteudoPublico h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.conteudoPublico p {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.conteudoPublico a {
+    color: white;
+    display: inline-block;
+    margin-top: 12px;
+    text-decoration: underline;
 }
