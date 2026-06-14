@@ -12,7 +12,7 @@
         <header>
 
             <nav class="menu">
-                <a href="https://evaldo-comp.github.io/dsdisciplines/"><img src="../../img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
+                <a href="#" onclick="abrirSidebar(event); return false;"><img src="../../img/mcvm-logo.png" alt="info" style="width: 100px;"></a>
             <button onclick="voltar('esSeDS')" id="" class="bnt">Voltar</button>
             </nav>
 
@@ -217,6 +217,16 @@
         <footer onclick="voltar('creditos')">     
                 <img src="../../img/footer/ds_footer_logo2.png" alt="">
         </footer>
+
+        <!-- Sidebar de tema -->
+        <div id="sidebar-overlay" class="hidden" onclick="fecharSidebar()"></div>
+        <aside id="sidebar" class="hidden" aria-hidden="true">
+
+            <button id="bnt-toggle" class="bnt" type="button">Dark</button>
+            <button id="" class="bnt" type="button">null</button>
+            <button id="" class="bnt" type="button">null</button>
+
+        </aside>
 
 <script src="../../public/script/script.js"></script>
 
