@@ -3,6 +3,6 @@ Thumbs.db
 *.log
 
 # Node.js folders are no longer part of this project
-node_modules
+
 
 TODO.md
