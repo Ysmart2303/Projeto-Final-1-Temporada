@@ -75,19 +75,6 @@ function voltarSeries() {
     document.getElementById("serieAtual").style.display = "none";
 }
 
-async function buscarRegistro(tipo, bimestre) {
-    const params = new URLSearchParams({
-        curso: cursoAtual.usuario,
-        serie: serieAtual,
-        bimestre,
-        tipo
-    });
-
-    const resposta = await fetch(`${API_URL}/api/conteudos?${params.toString()}`);
-    if (!resposta.ok) throw new Error("Erro ao buscar dados");
-    return await resposta.json();
-}
-
 function textoTipo(tipo) {
     return tipo === "conteudo" ? "Conteudo" : "Atividade";
 }
@@ -106,15 +93,18 @@ function mostrarEditorRegistro(tipo, bimestre, dados) {
     const linkId = ehConteudo ? "linkAjuda" : "linkAtividade";
     const textoId = ehConteudo ? "textoConteudo" : "textoAtividade";
     const salvarFn = ehConteudo ? "salvarConteudo" : "salvarAtividade";
+    const registroId = dados?.id ? Number(dados.id) : null;
+    const tituloAcao = registroId ? "Editar" : "Novo";
+    const textoBotao = registroId ? "Salvar alteracao" : "Cadastrar";
 
     area.innerHTML = `
         <div class="painelEdicao">
-            <h2>${textoTipo(tipo)} - ${serieAtual} Serie - Bimestre ${bimestre}</h2>
+            <h2>${tituloAcao} ${textoTipo(tipo)} - ${serieAtual} Serie - Bimestre ${bimestre}</h2>
             <input type="text" id="${assuntoId}" placeholder="Assunto">
             <input type="url" id="${linkId}" placeholder="Link de ajuda">
             <textarea id="${textoId}" placeholder="Digite o texto..."></textarea>
             <div class="botoesEdicao">
-                <button onclick="${salvarFn}(${bimestre})">Salvar alteracao</button>
+                <button onclick="${salvarFn}(${bimestre}, ${registroId})">${textoBotao}</button>
                 <button onclick="voltarParaGerenciamento()">Voltar para lista</button>
             </div>
         </div>
@@ -126,68 +116,17 @@ function mostrarEditorRegistro(tipo, bimestre, dados) {
 }
 
 async function abrirConteudos(bimestre) {
-    const area = document.getElementById("conteudoBi");
-    area.innerHTML = "<p>Carregando...</p>";
-
-    let dados = { assunto: "", link: "", texto: "" };
-    try {
-        dados = (await buscarRegistro("conteudo", bimestre)) || dados;
-    } catch (err) {
-        console.error(err);
-        alert("Nao foi possivel carregar o conteudo salvo.");
-    }
-
-    area.innerHTML = `
-        <div class="painelEdicao">
-            <h2>Conteudos - Bimestre ${bimestre}</h2>
-            <input type="text" id="assunto" placeholder="Assunto">
-            <input type="url" id="linkAjuda" placeholder="Link de ajuda">
-            <textarea id="textoConteudo" placeholder="Digite o conteudo..."></textarea>
-            <div class="botoesEdicao">
-                <button onclick="salvarConteudo(${bimestre})">Salvar</button>
-                <button onclick="abrirMes(${bimestre})">Voltar</button>
-            </div>
-        </div>
-    `;
-
-    document.getElementById("assunto").value = dados.assunto || "";
-    document.getElementById("linkAjuda").value = dados.link || "";
-    document.getElementById("textoConteudo").value = dados.texto || "";
+    mostrarEditorRegistro("conteudo", bimestre, null);
 }
 
 async function abrirAtividades(bimestre) {
-    const area = document.getElementById("conteudoBi");
-    area.innerHTML = "<p>Carregando...</p>";
-
-    let dados = { assunto: "", link: "", texto: "" };
-    try {
-        dados = (await buscarRegistro("atividade", bimestre)) || dados;
-    } catch (err) {
-        console.error(err);
-        alert("Nao foi possivel carregar a atividade salva.");
-    }
-
-    area.innerHTML = `
-        <div class="painelEdicao">
-            <h2>Atividades - Bimestre ${bimestre}</h2>
-            <input type="text" id="assuntoAtividade" placeholder="Assunto">
-            <input type="url" id="linkAtividade" placeholder="Link de ajuda">
-            <textarea id="textoAtividade" placeholder="Digite a atividade..."></textarea>
-            <div class="botoesEdicao">
-                <button onclick="salvarAtividade(${bimestre})">Salvar</button>
-                <button onclick="abrirMes(${bimestre})">Voltar</button>
-            </div>
-        </div>
-    `;
-
-    document.getElementById("assuntoAtividade").value = dados.assunto || "";
-    document.getElementById("linkAtividade").value = dados.link || "";
-    document.getElementById("textoAtividade").value = dados.texto || "";
+    mostrarEditorRegistro("atividade", bimestre, null);
 }
 
-async function salvarRegistro(tipo, bimestre, dados) {
-    const resposta = await fetch(`${API_URL}/api/conteudos`, {
-        method: "POST",
+async function salvarRegistro(tipo, bimestre, dados, id = null) {
+    const url = id ? `${API_URL}/api/conteudos/${id}` : `${API_URL}/api/conteudos`;
+    const resposta = await fetch(url, {
+        method: id ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             curso: cursoAtual.usuario,
@@ -213,14 +152,14 @@ function normalizarLinkExterno(link) {
     return `https://${linkLimpo}`;
 }
 
-async function salvarConteudo(bimestre) {
+async function salvarConteudo(bimestre, id = null) {
     try {
         await salvarRegistro("conteudo", bimestre, {
             assunto: document.getElementById("assunto").value.trim(),
             link: normalizarLinkExterno(document.getElementById("linkAjuda").value),
             texto: document.getElementById("textoConteudo").value.trim()
-        });
-        alert("Conteudo salvo!");
+        }, id);
+        alert(id ? "Conteudo atualizado!" : "Conteudo salvo!");
         await voltarParaGerenciamento();
     } catch (err) {
         alert(err.message);
@@ -228,14 +167,14 @@ async function salvarConteudo(bimestre) {
     }
 }
 
-async function salvarAtividade(bimestre) {
+async function salvarAtividade(bimestre, id = null) {
     try {
         await salvarRegistro("atividade", bimestre, {
             assunto: document.getElementById("assuntoAtividade").value.trim(),
             link: normalizarLinkExterno(document.getElementById("linkAtividade").value),
             texto: document.getElementById("textoAtividade").value.trim()
-        });
-        alert("Atividade salva!");
+        }, id);
+        alert(id ? "Atividade atualizada!" : "Atividade salva!");
         await voltarParaGerenciamento();
     } catch (err) {
         alert(err.message);
@@ -307,21 +246,20 @@ function editarRegistro(index) {
 async function excluirRegistro(index) {
     const registro = registrosCadastrados[index];
     if (!registro) return;
+    if (!registro.id) {
+        alert("Registro sem id. Atualize a lista e tente novamente.");
+        return;
+    }
 
     const confirmar = confirm(
         `Excluir ${textoTipo(registro.tipo).toLowerCase()} "${registro.assunto || "sem assunto"}"?`
     );
     if (!confirmar) return;
 
-    const params = new URLSearchParams({
-        curso: cursoAtual.usuario,
-        serie: registro.serie,
-        bimestre: registro.bimestre,
-        tipo: registro.tipo
-    });
+    const params = new URLSearchParams({ curso: cursoAtual.usuario });
 
     try {
-        const resposta = await fetch(`${API_URL}/api/conteudos?${params.toString()}`, {
+        const resposta = await fetch(`${API_URL}/api/conteudos/${registro.id}?${params.toString()}`, {
             method: "DELETE"
         });
         const dados = await resposta.json();

@@ -26,16 +26,19 @@ loadEnvFile(path.join(__dirname, "..", ".env"));
 
 const app = express();
 const projectRoot = path.join(__dirname, "..");
+const publicRoot = path.join(projectRoot, "public");
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(projectRoot));
+app.use(express.static(publicRoot));
+app.use("/img", express.static(path.join(projectRoot, "img")));
+app.use("/jl", express.static(path.join(projectRoot, "jl")));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST || "127.0.0.1",
-    port: Number(process.env.DB_PORT || 3306),
+    port: Number(process.env.DB_PORT || 3307),
     user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "2303",
+    password: process.env.DB_PASSWORD || "admin",
     database: process.env.DB_NAME || "escola",
     waitForConnections: true,
     connectionLimit: 10
@@ -54,6 +57,19 @@ function adminPublico(admin) {
     };
 }
 
+const camposConteudo = `
+    id,
+    curso_usuario,
+    tipo,
+    serie,
+    bimestre,
+    assunto,
+    link,
+    texto,
+    criado_em,
+    atualizado_em
+`;
+
 async function testarConexao() {
     const connection = await pool.getConnection();
     try {
@@ -65,7 +81,7 @@ async function testarConexao() {
 }
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(projectRoot, "html", "index.html"));
+    res.sendFile(path.join(publicRoot, "html", "index.html"));
 });
 
 app.get("/api/health", async (req, res) => {
@@ -171,7 +187,23 @@ app.delete("/api/cursos/:usuario", async (req, res) => {
 });
 
 app.get("/api/conteudos", async (req, res) => {
-    const { curso, serie, bimestre, tipo } = req.query;
+    const { id, curso, serie, bimestre, tipo } = req.query;
+
+    if (id) {
+        try {
+            const [rows] = await pool.query(
+                `SELECT ${camposConteudo}
+                 FROM conteudos
+                 WHERE id = ?
+                 LIMIT 1`,
+                [Number(id)]
+            );
+
+            return res.json(rows[0] || null);
+        } catch (err) {
+            return res.status(500).json({ mensagem: "Erro ao buscar conteudo.", erro: err.message });
+        }
+    }
 
     if (!curso || !serie || !bimestre || !tipo) {
         return res.status(400).json({ mensagem: "Informe curso, serie, bimestre e tipo." });
@@ -179,14 +211,14 @@ app.get("/api/conteudos", async (req, res) => {
 
     try {
         const [rows] = await pool.query(
-            `SELECT curso_usuario, tipo, serie, bimestre, assunto, link, texto, atualizado_em
+            `SELECT ${camposConteudo}
              FROM conteudos
              WHERE curso_usuario = ? AND serie = ? AND bimestre = ? AND tipo = ?
-             LIMIT 1`,
+             ORDER BY criado_em DESC, id DESC`,
             [String(curso).toUpperCase(), Number(serie), Number(bimestre), tipo]
         );
 
-        res.json(rows[0] || null);
+        res.json(rows);
     } catch (err) {
         res.status(500).json({ mensagem: "Erro ao buscar conteudo.", erro: err.message });
     }
@@ -195,10 +227,10 @@ app.get("/api/conteudos", async (req, res) => {
 app.get("/api/conteudos/curso/:curso", async (req, res) => {
     try {
         const [rows] = await pool.query(
-            `SELECT curso_usuario, tipo, serie, bimestre, assunto, link, texto, atualizado_em
+            `SELECT ${camposConteudo}
              FROM conteudos
              WHERE curso_usuario = ?
-             ORDER BY serie, bimestre, tipo`,
+             ORDER BY serie, bimestre, tipo, criado_em DESC, id DESC`,
             [String(req.params.curso).toUpperCase()]
         );
 
@@ -220,35 +252,89 @@ app.post("/api/conteudos", async (req, res) => {
     }
 
     try {
-        await pool.query(
+        const [result] = await pool.query(
             `INSERT INTO conteudos (curso_usuario, serie, bimestre, tipo, assunto, link, texto)
-             VALUES (?, ?, ?, ?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE
-                assunto = VALUES(assunto),
-                link = VALUES(link),
-                texto = VALUES(texto),
-                atualizado_em = CURRENT_TIMESTAMP`,
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [String(curso).toUpperCase(), Number(serie), Number(bimestre), tipo, assunto, link, texto]
         );
 
-        res.json({ sucesso: true });
+        const [rows] = await pool.query(
+            `SELECT ${camposConteudo}
+             FROM conteudos
+             WHERE id = ?
+             LIMIT 1`,
+            [result.insertId]
+        );
+
+        res.status(201).json({ sucesso: true, conteudo: rows[0] });
     } catch (err) {
         res.status(500).json({ mensagem: "Erro ao salvar conteudo.", erro: err.message });
     }
 });
 
-app.delete("/api/conteudos", async (req, res) => {
-    const { curso, serie, bimestre, tipo } = req.query;
+app.put("/api/conteudos/:id", async (req, res) => {
+    const { curso, serie, bimestre, tipo, assunto = "", link = "", texto = "" } = req.body;
+    const id = Number(req.params.id);
+
+    if (!id) {
+        return res.status(400).json({ mensagem: "Informe o id do registro." });
+    }
 
     if (!curso || !serie || !bimestre || !tipo) {
         return res.status(400).json({ mensagem: "Informe curso, serie, bimestre e tipo." });
     }
 
+    if (!["conteudo", "atividade"].includes(tipo)) {
+        return res.status(400).json({ mensagem: "Tipo invalido." });
+    }
+
     try {
         const [result] = await pool.query(
+            `UPDATE conteudos
+             SET serie = ?,
+                 bimestre = ?,
+                 tipo = ?,
+                 assunto = ?,
+                 link = ?,
+                 texto = ?,
+                 atualizado_em = CURRENT_TIMESTAMP
+             WHERE id = ? AND curso_usuario = ?`,
+            [Number(serie), Number(bimestre), tipo, assunto, link, texto, id, String(curso).toUpperCase()]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ mensagem: "Registro nao encontrado." });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT ${camposConteudo}
+             FROM conteudos
+             WHERE id = ?
+             LIMIT 1`,
+            [id]
+        );
+
+        res.json({ sucesso: true, conteudo: rows[0] });
+    } catch (err) {
+        res.status(500).json({ mensagem: "Erro ao atualizar conteudo.", erro: err.message });
+    }
+});
+
+app.delete("/api/conteudos/:id", async (req, res) => {
+    const id = Number(req.params.id);
+    const curso = req.query.curso ? String(req.query.curso).toUpperCase() : "";
+
+    if (!id) {
+        return res.status(400).json({ mensagem: "Informe o id do registro." });
+    }
+
+    try {
+        const valores = curso ? [id, curso] : [id];
+        const filtroCurso = curso ? " AND curso_usuario = ?" : "";
+        const [result] = await pool.query(
             `DELETE FROM conteudos
-             WHERE curso_usuario = ? AND serie = ? AND bimestre = ? AND tipo = ?`,
-            [String(curso).toUpperCase(), Number(serie), Number(bimestre), tipo]
+             WHERE id = ?${filtroCurso}`,
+            valores
         );
 
         if (result.affectedRows === 0) {
@@ -261,6 +347,10 @@ app.delete("/api/conteudos", async (req, res) => {
     }
 });
 
+app.delete("/api/conteudos", async (req, res) => {
+    res.status(400).json({ mensagem: "Informe o id do registro para excluir." });
+});
+
 app.get("/api/conteudos/publico", async (req, res) => {
     const { curso, serie, bimestre } = req.query;
 
@@ -270,10 +360,10 @@ app.get("/api/conteudos/publico", async (req, res) => {
 
     try {
         const [rows] = await pool.query(
-            `SELECT tipo, assunto, link, texto
+            `SELECT id, tipo, assunto, link, texto
              FROM conteudos
              WHERE curso_usuario = ? AND serie = ? AND bimestre = ?
-             ORDER BY atualizado_em DESC`,
+             ORDER BY criado_em DESC, id DESC`,
             [String(curso).toUpperCase(), Number(serie), Number(bimestre)]
         );
 
@@ -291,13 +381,13 @@ app.get("/api/conteudos/publico", async (req, res) => {
 
 const PORT = Number(process.env.PORT || 3000);
 
-testarConexao()
-    .catch((err) => {
+const server = app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+
+    testarConexao().catch((err) => {
         console.error("Erro ao conectar no banco:", err.message);
         console.error("Confira se o MySQL esta rodando e se o schema foi criado.");
-    })
-    .finally(() => {
-        app.listen(PORT, () => {
-            console.log(`Servidor rodando em http://localhost:${PORT}`);
-        });
     });
+});
+
+module.exports = { app, pool, server };

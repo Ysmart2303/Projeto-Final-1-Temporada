@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS conteudos (
   texto TEXT NOT NULL,
   criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY uq_conteudo (curso_usuario, serie, bimestre, tipo),
+  KEY idx_conteudos_busca (curso_usuario, serie, bimestre, tipo),
   CONSTRAINT fk_conteudos_admin
     FOREIGN KEY (curso_usuario)
     REFERENCES admins (usuario)
