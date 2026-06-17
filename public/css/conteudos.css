@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    gap: 18px;
 }
 
 .conteudos {
@@ -13,31 +14,61 @@
     justify-content: center;
 }
 
+/* Cards de Conteúdo/Atividades costumam ficar colados por falta de espaçamento vertical */
+.DS-conteudo {
+    padding: 22px 0;
+    gap: 18px;
+    margin: 18px auto;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Espaçamento entre o card de conteúdo e o bloco de atividades */
+.DS-conteudo h1.Atividades {
+    margin-top: 28px;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+.atividades {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 
 .quadroConteudos {
     width: min(90vw, 760px);
     min-height: 150px;
     padding: 20px;
-    
+    box-sizing: border-box;
+
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
-    
     border-radius: 20px;
 
-    transition: all 0.3s ease;
+    /* mais “alto”, com separação visual */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+
 
 .quadroConteudos:hover, .quadroAtividades:hover {
     cursor: pointer;
-    
-    transform: scale(1.1);
-    
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
 }
+
+.quadroAtividades:hover {
+    /* garante que o bloco de atividades também reaja */
+}
+
 
 .quadroConteudos:active, .quadroAtividades:active {
     transform: scale(0.9);
@@ -52,6 +83,7 @@
     width: min(90vw, 760px);
     min-height: 150px;
     padding: 20px;
+    box-sizing: border-box;
 
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
@@ -67,29 +99,80 @@
 
 .Atividades {
     color: white;
-    text-align: center;margin-top: 30px;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
 }
 
+
+
+
+
+/* Conteúdo injetado via banco (montarCardPublico) */
 .conteudoPublico {
     width: 100%;
-    text-align: center;
+    text-align: left;
     overflow-wrap: anywhere;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 6px 4px;
 }
 
 .conteudoPublico h2 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    margin: 0;
+
+    color: var(--distant_gray);
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .conteudoPublico p {
+    margin: 0;
+
     white-space: pre-wrap;
-    line-height: 1.5;
+    line-height: 1.6;
+
+    color: rgba(245, 247, 249, 0.9);
+    font-size: 0.98rem;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .conteudoPublico a {
-    color: white;
-    display: inline-block;
-    margin-top: 12px;
-    text-decoration: underline;
+    margin-top: 4px;
+
+    color: var(--distant_gray);
+    text-decoration: none;
+
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 14px;
+    border-radius: 14px;
+
+    background: rgba(39, 63, 92, 0.45);
+    border: 2px solid var(--marine_blue);
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
+
+.conteudoPublico a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px rgba(0,0,0,0.25);
+    background: rgba(39, 63, 92, 0.65);
+}
+
