@@ -21,6 +21,19 @@ const codigoBancoPorCurso = {
     tex: "TEX"
 };
 
+const dadosModalConteudo = new Map();
+let proximoIdModalConteudo = 0;
+
+function escaparHtml(valor) {
+    return String(valor ?? "").replace(/[&<>"']/g, (caractere) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+    }[caractere]));
+}
+
 function irParaBimestre(numeroBimestre) {
     if (!cursoSelecionado || !anoSelecionado) {
         alert("Erro: curso ou ano nao selecionado.");
@@ -127,16 +140,29 @@ function falarnome() {
 function montarCardPublico(dados, vazio) {
     if (!dados) return vazio;
 
+    const assunto = dados.assunto || "Sem assunto";
+    const texto = dados.texto || "Sem texto cadastrado.";
     const linkExterno = normalizarLinkExterno(dados.link);
+    const modalId = `conteudo-modal-${proximoIdModalConteudo++}`;
+
+    dadosModalConteudo.set(modalId, {
+        assunto,
+        texto,
+        link: dados.link ? linkExterno : ""
+    });
+
     const link = dados.link
-        ? `<a href="${linkExterno}" target="_blank" rel="noopener noreferrer">Abrir link</a>`
+        ? `<a href="${escaparHtml(linkExterno)}" target="_blank" rel="noopener noreferrer">Abrir link</a>`
         : "";
 
     return `
         <article class="conteudoPublico">
-            <h2>${dados.assunto || "Sem assunto"}</h2>
-            <p>${dados.texto || "Sem texto cadastrado."}</p>
-            ${link}
+            <h2>${escaparHtml(assunto)}</h2>
+            <p>${escaparHtml(texto)}</p>
+            <div class="conteudoPublico__acoes">
+                <button class="conteudoPublico__verMais" type="button" data-conteudo-modal-id="${modalId}">Ver mais</button>
+                ${link}
+            </div>
         </article>
     `;
 }
@@ -150,6 +176,72 @@ function normalizarLinkExterno(link) {
     }
 
     return `https://${linkLimpo}`;
+}
+
+function obterModalConteudo() {
+    let modal = document.getElementById("conteudo-modal");
+    if (modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "conteudo-modal";
+    modal.className = "conteudoModal hidden";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-labelledby", "conteudo-modal-titulo");
+    modal.innerHTML = `
+        <div class="conteudoModal__overlay" data-fechar-modal="true"></div>
+        <div class="conteudoModal__caixa">
+            <button class="conteudoModal__fechar" type="button" data-fechar-modal="true" aria-label="Fechar">x</button>
+            <h2 id="conteudo-modal-titulo"></h2>
+            <div id="conteudo-modal-texto" class="conteudoModal__texto"></div>
+            <a id="conteudo-modal-link" class="conteudoModal__link hidden" target="_blank" rel="noopener noreferrer">Abrir link</a>
+        </div>
+    `;
+
+    modal.addEventListener("click", (event) => {
+        if (event.target.closest("[data-fechar-modal]")) {
+            fecharModalConteudo();
+        }
+    });
+
+    document.body.appendChild(modal);
+    return modal;
+}
+
+function abrirModalConteudo(modalId) {
+    const dados = dadosModalConteudo.get(modalId);
+    if (!dados) return;
+
+    const modal = obterModalConteudo();
+    const titulo = modal.querySelector("#conteudo-modal-titulo");
+    const texto = modal.querySelector("#conteudo-modal-texto");
+    const link = modal.querySelector("#conteudo-modal-link");
+    const botaoFechar = modal.querySelector(".conteudoModal__fechar");
+
+    if (titulo) titulo.textContent = dados.assunto;
+    if (texto) texto.textContent = dados.texto;
+
+    if (link) {
+        if (dados.link) {
+            link.href = dados.link;
+            link.classList.remove("hidden");
+        } else {
+            link.removeAttribute("href");
+            link.classList.add("hidden");
+        }
+    }
+
+    modal.classList.remove("hidden");
+    document.body.classList.add("modal-aberto");
+    if (botaoFechar) botaoFechar.focus();
+}
+
+function fecharModalConteudo() {
+    const modal = document.getElementById("conteudo-modal");
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+    document.body.classList.remove("modal-aberto");
 }
 
 async function carregarConteudosPublicos(curso, ano, bimestre, targetAnoSection) {
@@ -269,6 +361,19 @@ window.fecharSidebar = function fecharSidebar() {
 window.addEventListener("DOMContentLoaded", () => {
     const botaoTema = document.getElementById("bnt-toggle");
     if (botaoTema) botaoTema.onclick = () => window.toggleDarkMode();
+
+    document.addEventListener("click", (event) => {
+        const botaoModal = event.target.closest("[data-conteudo-modal-id]");
+        if (!botaoModal) return;
+
+        abrirModalConteudo(botaoModal.dataset.conteudoModalId);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            fecharModalConteudo();
+        }
+    });
 
     try {
         const savedTheme = localStorage.getItem("theme");
