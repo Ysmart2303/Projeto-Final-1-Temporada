@@ -215,9 +215,9 @@ async function listarRegistros() {
         }
 
         lista.innerHTML = dados.map((registro, index) => `
-            <article class="registroCard">
+            <article class="registroCard registro-${registro.tipo}">
                 <div class="registroInfo">
-                    <span>${textoTipo(registro.tipo)}</span>
+                    <span class="registroTipo">${textoTipo(registro.tipo)}</span>
                     <h3>${registro.assunto || "Sem assunto"}</h3>
                     <p>${registro.serie} Serie - Bimestre ${registro.bimestre}</p>
                     <p>${registro.texto || "Sem texto cadastrado."}</p>

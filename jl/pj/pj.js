@@ -1,3 +1,25 @@
+function voltar(index) {
+    const paginas = {
+        home: "/html/index.html",
+        creditos: "/html/creditos.html",
+        login: "/jl/pj/pj.html",
+        esSe: "/html/index.html",
+        esSeDS: "/html/index.html",
+        conDS: "/html/conteudos/conDS.html",
+        conQm: "/html/conteudos/conQm.html",
+        conSec: "/html/conteudos/conSec.html",
+        conLogi: "/html/conteudos/conLogi.html",
+        conTex: "/html/conteudos/conTex.html"
+    };
+
+    if (paginas[index]) {
+        window.location.href = paginas[index];
+    } else {
+        history.back();
+    }
+}
+
+
 const API_URL = window.location.port === "3000" ? window.location.origin : "http://localhost:3000";
 let tentativas = 0;
 let admins = [];

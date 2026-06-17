@@ -25,6 +25,7 @@ body{
 header{
     display: flex;
     justify-content: space-between;
+    background-color: #273f5c;
 }
 
 .cursoInfo {
@@ -180,8 +181,11 @@ button {
     }
 
     #textoConteudo,
+    #textoAtividade,
     #assunto,
+    #assuntoAtividade,
     #linkAjuda,
+    #linkAtividade,
     #emailProfessor {
         width: 90%;
         max-width: 900px;
@@ -196,6 +200,10 @@ button {
 
     #textoConteudo {
         height: 250px;
+    }
+
+    #textoAtividade {
+        min-height: 220px;
     }
 
     .botoesEdicao {
@@ -264,4 +272,175 @@ button {
     margin-bottom:15px;
 
     box-sizing:border-box;
+}
+
+.gerenciarSec {
+    background-color: var(--marine_blue);
+    border: 10px solid var(--manor_blue);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 14px 30px rgba(1, 11, 31, 0.35);
+}
+
+.gerenciarTopo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid rgba(245, 247, 249, 0.18);
+}
+
+.gerenciarTopo h2 {
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+.listaRegistros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.listaRegistros > p {
+    grid-column: 1 / -1;
+    padding: 18px;
+    text-align: center;
+    color: rgba(245, 247, 249, 0.82);
+    background-color: rgba(19, 26, 40, 0.32);
+    border: 1px solid rgba(245, 247, 249, 0.16);
+    border-radius: 14px;
+}
+
+.registroCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 260px;
+    padding: 18px;
+    background-color: rgba(19, 26, 40, 0.46);
+    border: 1px solid rgba(245, 247, 249, 0.14);
+    border-left: 6px solid var(--hemlock);
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(1, 11, 31, 0.34);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.registroCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245, 247, 249, 0.26);
+    box-shadow: 0 18px 30px rgba(1, 11, 31, 0.48);
+}
+
+.registro-atividade {
+    border-left-color: #9fd0c7;
+}
+
+.registro-conteudo {
+    border-left-color: #b9c8f0;
+}
+
+.registroInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.registroTipo {
+    align-self: flex-start;
+    padding: 6px 10px;
+    background-color: rgba(122, 150, 156, 0.24);
+    border: 1px solid rgba(245, 247, 249, 0.18);
+    border-radius: 999px;
+    color: var(--distant_gray);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.registroInfo h3 {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: #ffffff;
+    overflow-wrap: anywhere;
+}
+
+.registroInfo p {
+    color: rgba(245, 247, 249, 0.82);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.registroInfo p:first-of-type {
+    color: #d9e3ec;
+    font-weight: 700;
+}
+
+.registroInfo p:last-of-type {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.registroInfo a {
+    width: fit-content;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background-color: rgba(122, 150, 156, 0.28);
+    border: 1px solid rgba(245, 247, 249, 0.18);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.registroInfo a:hover {
+    transform: translateY(-2px);
+    background-color: rgba(122, 150, 156, 0.42);
+}
+
+.registroAcoes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px solid rgba(245, 247, 249, 0.14);
+}
+
+.registroAcoes button {
+    flex: 1;
+    min-width: 110px;
+    box-shadow: none;
+    background-color: var(--hemlock);
+    color: #111827;
+}
+
+.registroAcoes .botaoExcluir {
+    background-color: #b85757;
+    color: #ffffff;
+}
+
+@media (max-width: 560px) {
+    .gerenciarSec {
+        padding: 16px;
+        border-width: 6px;
+    }
+
+    .gerenciarTopo {
+        align-items: stretch;
+    }
+
+    .gerenciarTopo button {
+        width: 100%;
+    }
+
+    .listaRegistros {
+        grid-template-columns: 1fr;
+    }
 }

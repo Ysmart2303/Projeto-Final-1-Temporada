@@ -1,17 +1,69 @@
+:root {
+
+    /* Theme DARK (default) */
+    --grade_curso : 290px;
+    --cor_fundo : #131a28;
+    --marine_blue : #273f5c;
+    --hemlock : #7a969c;
+    --manor_blue : #bebbc5;
+    --distant_gray : #f5f7f9;
+}
+
 body{
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
     color: white;
-    background-color: rgb(19, 26, 40);
+    background-color: var(--cor_fundo);
     background-size: 400% 400%;
     background-attachment: fixed;
 }
+
+header {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100px;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: #273f5c;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+#siga {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 2.3em;
+    color: var(--distant_gray);
+    text-align: center;
+}
+
+#header-logo {
+    width: 100px;
+    transition: 0.3s ease;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#header-logo:hover {
+    cursor: pointer;
+}
+
 .login-box{
     width: 300px;
     margin: 100px auto;
     padding: 30px;
     background: rgba(39, 63, 92);
+
+    border: 10px solid var(--manor_blue);
+
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 0 15px rgba(0,0,0,0.4);
@@ -24,20 +76,38 @@ body{
     border-radius: 8px;
 }
 button{
-    color: white;
-    background-color: rgba(19, 26, 40);
-    border: none;
-    padding: 10px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    background: #2D2D2D;
-    box-shadow: 0 10px 20px rgb(1, 11, 31);
-    transform: 0.3s;
 
+    width: 100px;
+    /* height: 30px; */
+
+    padding: 10px;
+
+    background-color: var(--hemlock);
+    border: 2px solid var(--marine_blue);
+    border-radius: 20px;
+
+    transition: 0.3s ease;
 }
-button:hover{
-    transform: scale(1.05);
+
+.bnt {
+    width: 100px;
+    height: 30px;
+    padding: 0;
+    position: absolute;
+    top: 37px;
+    right: 10px;
+}
+
+button:hover {
+    cursor: pointer;
+    
+    transform: scale(1.1);
+    
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+button:active, header a:active {
+    transform: scale(0.9);
 }
 .cardCurso{
     background: rgba(255,255,255,0.1);

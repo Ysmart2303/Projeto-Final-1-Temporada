@@ -17,6 +17,7 @@ body {
 
 header {
     user-select: none;
+    background-color: #273f5c;
 }
 
 .menu {

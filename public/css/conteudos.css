@@ -1,6 +1,41 @@
-/* .s1 {
-    flex-direction: column;
-} */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+
+    /* Theme DARK (default) */
+    --grade_curso : 290px;
+    --cor_fundo : #131a28;
+    --marine_blue : #273f5c;
+    --hemlock : #7a969c;
+    --manor_blue : #bebbc5;
+    --distant_gray : #f5f7f9;
+}
+
+html[data-theme="light"] {
+    /* Theme LIGHT */
+    --cor_fundo : #25377d;
+    --marine_blue : #a3b7de;
+    --hemlock : #6b7a8a;
+    --manor_blue : #3b5aa3;
+    --distant_gray : #1b2430;
+}
+
+header {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+
+    background-color: #273f5c;
+
+    min-height: 100px;
+
+}
+
 
 .DS-conteudo {
     display: flex;
