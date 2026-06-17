@@ -192,11 +192,10 @@ function obterModalConteudo() {
         <div class="conteudoModal__overlay" data-fechar-modal="true"></div>
         <div class="conteudoModal__caixa">
             <button class="conteudoModal__fechar" type="button" data-fechar-modal="true" aria-label="Fechar">x</button>
-            <h2 id="conteudo-modal-titulo"></h2>
             <div id="conteudo-modal-texto" class="conteudoModal__texto"></div>
-            <a id="conteudo-modal-link" class="conteudoModal__link hidden" target="_blank" rel="noopener noreferrer">Abrir link</a>
         </div>
     `;
+
 
     modal.addEventListener("click", (event) => {
         if (event.target.closest("[data-fechar-modal]")) {
@@ -213,23 +212,11 @@ function abrirModalConteudo(modalId) {
     if (!dados) return;
 
     const modal = obterModalConteudo();
-    const titulo = modal.querySelector("#conteudo-modal-titulo");
     const texto = modal.querySelector("#conteudo-modal-texto");
-    const link = modal.querySelector("#conteudo-modal-link");
     const botaoFechar = modal.querySelector(".conteudoModal__fechar");
 
-    if (titulo) titulo.textContent = dados.assunto;
     if (texto) texto.textContent = dados.texto;
 
-    if (link) {
-        if (dados.link) {
-            link.href = dados.link;
-            link.classList.remove("hidden");
-        } else {
-            link.removeAttribute("href");
-            link.classList.add("hidden");
-        }
-    }
 
     modal.classList.remove("hidden");
     document.body.classList.add("modal-aberto");

@@ -356,7 +356,12 @@ html[data-theme="light"] .conteudoModal__caixa h2 {
     /* Garante quebra de linha quando o texto atingir a borda do modal */
     overflow-wrap: anywhere;
     word-break: break-word;
+
+    /* Ajuste visual: dá respiro no topo e no fim */
+    margin-top: 18px;
+    margin-bottom: 10px;
 }
+
 
 
 html[data-theme="light"] .conteudoModal__texto {
