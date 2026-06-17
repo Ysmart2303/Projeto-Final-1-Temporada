@@ -213,9 +213,29 @@ button {
         justify-content: center;
     }
 
-    #voltarSeries {
+#voltarSeries {
         margin-top: 10px;
     }
+
+    #botaoVoltarIndex {
+        width: 100px;
+        height: 30px;
+
+
+        background-color: var(--hemlock);
+        border: 2px solid var(--marine_blue);
+        color: #ffffff;
+        box-shadow: 0 10px 20px rgba(1, 11, 31, 0.8);
+
+        position: absolute;
+        top: 37px;
+        right: 10px;
+    }
+
+    #botaoVoltarIndex:hover {
+        transform: scale(1.05);
+    }
+
 
     @keyframes subirMes {
         from {
