@@ -346,31 +346,29 @@ window.fecharSidebar = function fecharSidebar() {
 };
 
 function abrirFeedback() {
-    const feedback = document.getElementById("feedback");
-    if (!feedback) return;
-    feedback.classList.remove("hidden");
+    const overlay = document.getElementById("feedback-overlay");
+    const modal = document.getElementById("feedbackModal");
 
-    const textarea = document.getElementById("feedback");
-    if (textarea) {
-        setTimeout(() => textarea.focus(), 0);
-    }
+    if (overlay) overlay.classList.remove("hidden");
+    if (modal) modal.classList.remove("hidden");
+
+    const textarea = document.getElementById("feedbackText");
+    if (textarea) setTimeout(() => textarea.focus(), 0);
 }
 
 function fecharFeedback() {
-    const feedback = document.getElementById("feedback");
-    if (!feedback) return;
-    feedback.classList.add("hidden");
+    const overlay = document.getElementById("feedback-overlay");
+    const modal = document.getElementById("feedbackModal");
+
+    if (overlay) overlay.classList.add("hidden");
+    if (modal) modal.classList.add("hidden");
 }
 
-function enviarFeedback(event) {
+async function enviarFeedback(event) {
     if (event && typeof event.preventDefault === "function") event.preventDefault();
 
-    const textarea = document.getElementById("feedback");
-    const feedbackSection = document.getElementById("feedback");
-    // Atenção: o id="feedback" no HTML é tanto da section quanto da textarea.
-    // Aqui, vamos priorizar a textarea encontrando por tag.
-    const textareaReal = feedbackSection ? feedbackSection.querySelector("textarea#feedback") : null;
-    const conteudo = (textareaReal ? textareaReal.value : (textarea ? textarea.value : "")).trim();
+    const textarea = document.getElementById("feedbackText");
+    const conteudo = (textarea ? textarea.value : "").trim();
 
     if (!conteudo) {
         alert("Digite seu feedback antes de enviar.");
@@ -378,13 +376,13 @@ function enviarFeedback(event) {
     }
 
     // Não conectar com banco agora: apenas simular envio.
+    // (Se você criar uma rota no backend depois, trocamos aqui.)
     alert("Feedback enviado com sucesso (simulação). Obrigado! ");
 
-    if (textareaReal) textareaReal.value = "";
-
-    // Opcional: fechar após enviar
-    if (feedbackSection) feedbackSection.classList.add("hidden");
+    if (textarea) textarea.value = "";
+    fecharFeedback();
 }
+
 
 window.abrirFeedback = abrirFeedback;
 window.fecharFeedback = fecharFeedback;
@@ -404,8 +402,10 @@ window.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             fecharModalConteudo();
+            fecharFeedback();
         }
     });
+
 
     try {
         const savedTheme = localStorage.getItem("theme");

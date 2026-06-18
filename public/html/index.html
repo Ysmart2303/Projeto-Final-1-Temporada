@@ -198,16 +198,25 @@
 
     </section>
 
-    <section id="feedback" class="feedbackClass hidden">
+    <!-- Modal de feedback (aberto pela sidebar) -->
+    <div id="feedback-overlay" class="feedbackOverlay hidden" onclick="fecharFeedback()" aria-hidden="true"></div>
+    <section id="feedbackModal" class="feedbackModal hidden" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitulo">
+        <header class="feedbackModal__header">
+            <h2 id="feedbackModalTitulo">Envie seu feedback</h2>
+            <button type="button" class="feedbackModal__fechar" onclick="fecharFeedback()" aria-label="Fechar">x</button>
+        </header>
 
-        <h2>feedbacks</h2>
+        <form id="feedback-form" onsubmit="enviarFeedback(event)" class="feedbackModal__form">
+            <label for="feedbackText">Deixe seu feedback:</label>
+            <textarea id="feedbackText" name="feedback" rows="4" cols="50" required></textarea>
 
-        <form id="feedback-form" onsubmit="enviarFeedback(event)">
-            <label for="feedback">Deixe seu feedback:</label><br>
-            <textarea id="feedback" name="feedback" rows="4" cols="50" required></textarea><br>
-            <button type="submit">Enviar</button>
-
+            <div class="feedbackModal__acoes">
+                <button type="button" class="feedbackModal__cancelar" onclick="fecharFeedback()">Cancelar</button>
+                <button type="submit" class="feedbackModal__enviar">Enviar</button>
+            </div>
+        </form>
     </section>
+
 
 
         <!-- <button onclick="mos()">itmrmn</button> -->
