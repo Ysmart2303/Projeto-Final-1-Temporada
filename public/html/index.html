@@ -6,6 +6,9 @@
     <title>CURSOS-MCVM</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/escolhaBi.css">
+
+<link rel="icon" type="image/x-icon" href="https://odia.ig.com.br/_midias/jpg/2023/05/18/copa-29114183.jpeg">
+
 </head>
 <body>
     
@@ -195,6 +198,17 @@
 
     </section>
 
+    <section id="feedback" class="feedbackClass hidden">
+
+        <h2>feedbacks</h2>
+
+        <form id="feedback-form" onsubmit="enviarFeedback(event)">
+            <label for="feedback">Deixe seu feedback:</label><br>
+            <textarea id="feedback" name="feedback" rows="4" cols="50" required></textarea><br>
+            <button type="submit">Enviar</button>
+
+    </section>
+
 
         <!-- <button onclick="mos()">itmrmn</button> -->
 
@@ -203,9 +217,14 @@
         <aside id="sidebar" class="hidden" aria-hidden="true">
 
             <button id="bnt-toggle" class="bnt" type="button">Dark</button>
-            <button id="" class="bnt" type="button">null</button>
-            <button id="" class="bnt" type="button">null</button>
 
+            <button class="bnt" onclick="abrirFeedback()" type="button">Feedback</button>
+            
+            <button class="bnt" onclick="window.open('https:https://github.com/Ysmart2303/Projeto-Final-1-Temporada', '_blank')">
+                <img src="/img/icons/github_icon.webp" alt="GitHub" style="width: 20px; height: 20px;">
+            </button>
+
+            <button id="" class="bnt" type="button">null</button>
         </aside>
 
         <footer onclick="voltar('creditos')">     

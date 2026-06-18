@@ -345,6 +345,51 @@ window.fecharSidebar = function fecharSidebar() {
     }
 };
 
+function abrirFeedback() {
+    const feedback = document.getElementById("feedback");
+    if (!feedback) return;
+    feedback.classList.remove("hidden");
+
+    const textarea = document.getElementById("feedback");
+    if (textarea) {
+        setTimeout(() => textarea.focus(), 0);
+    }
+}
+
+function fecharFeedback() {
+    const feedback = document.getElementById("feedback");
+    if (!feedback) return;
+    feedback.classList.add("hidden");
+}
+
+function enviarFeedback(event) {
+    if (event && typeof event.preventDefault === "function") event.preventDefault();
+
+    const textarea = document.getElementById("feedback");
+    const feedbackSection = document.getElementById("feedback");
+    // Atenção: o id="feedback" no HTML é tanto da section quanto da textarea.
+    // Aqui, vamos priorizar a textarea encontrando por tag.
+    const textareaReal = feedbackSection ? feedbackSection.querySelector("textarea#feedback") : null;
+    const conteudo = (textareaReal ? textareaReal.value : (textarea ? textarea.value : "")).trim();
+
+    if (!conteudo) {
+        alert("Digite seu feedback antes de enviar.");
+        return;
+    }
+
+    // Não conectar com banco agora: apenas simular envio.
+    alert("Feedback enviado com sucesso (simulação). Obrigado! ");
+
+    if (textareaReal) textareaReal.value = "";
+
+    // Opcional: fechar após enviar
+    if (feedbackSection) feedbackSection.classList.add("hidden");
+}
+
+window.abrirFeedback = abrirFeedback;
+window.fecharFeedback = fecharFeedback;
+window.enviarFeedback = enviarFeedback;
+
 window.addEventListener("DOMContentLoaded", () => {
     const botaoTema = document.getElementById("bnt-toggle");
     if (botaoTema) botaoTema.onclick = () => window.toggleDarkMode();

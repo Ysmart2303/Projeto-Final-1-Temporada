@@ -368,3 +368,20 @@ gap: 18px;
     border-radius: 20px;
 }
 
+/* feedback */
+
+/* #feedback é escondido no HTML e pode ser mostrado/removido via JS */
+.feedbackClass {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    background-color: var(--manor_blue);
+    color: var(--distant_gray);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
