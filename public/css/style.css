@@ -434,7 +434,7 @@ gap: 18px;
 
 .feedbackModal textarea {
 
-    width: 100%;
+    width: 97%;
     resize: vertical;
     border-radius: 12px;
     padding: 10px;
@@ -471,6 +471,39 @@ gap: 18px;
     color: #0c1220;
 }
 
+#feedbackType {
+    padding: 8px;
+    border-radius: 12px;
+    border: 2px solid var(--manor_blue);
+    background: rgba(0, 0, 0, 0.15);
+    color: var(--distant_gray);
+    outline: none;
+}
 
+#feedbackType option {
+    background: var(--marine_blue);
+    color: var(--distant_gray);
+}
 
+#feedbackType option:hover {
+    background: var(--manor_blue);
+}
 
+#feedbackType option:checked {
+    background: var(--hemlock);
+    color: #0c1220;
+}
+
+#feedbackType option:active {
+    background: var(--hemlock);
+    color: #0c1220;
+}
+
+#feedbackEmail {
+    padding: 8px;
+    border-radius: 12px;
+    border: 2px solid var(--manor_blue);
+    background: rgba(0, 0, 0, 0.15);
+    color: var(--distant_gray);
+    outline: none;
+}
