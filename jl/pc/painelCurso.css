@@ -45,7 +45,7 @@ header{
     flex: 0 0 auto;
     background-color: var(--hemlock);
     border: 2px solid var(--marine_blue);
-    color: #000000;
+    color: #ffffff;
     /* padding: 15px; */
     border-radius: 20px;
 
@@ -83,14 +83,23 @@ header{
 }
 
 button {
-    color: white;
-    background-color: #2d2d2d;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 12px;
+
+    width: 100px;
+    height: 30px;
+
+    margin-right: 10px;
+
+    flex: 0 0 auto;
+    background-color: var(--hemlock);
+    border: 2px solid var(--marine_blue);
+    color: #ffffff;
+    /* padding: 15px; */
+    border-radius: 20px;
+
     cursor: pointer;
-    font-weight: bold;
+
     box-shadow: 0 10px 20px rgba(1, 11, 31, 0.8);
+
     transition: transform 0.3s ease;
 }
 
@@ -246,6 +255,10 @@ button {
 
 #voltarSeries {
         margin-top: 10px;
+        align-self: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
 
     /* #botaoVoltarIndex (removido posicionamento absolute antigo) */

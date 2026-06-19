@@ -18,6 +18,7 @@ body {
     height: 100vh;
     user-select: none;
 
+    color: white;
 }
 
 .login-0 {
@@ -55,6 +56,8 @@ body {
     border-radius: 20px;
     
     box-shadow: var(--sombra);
+
+    color: white;
 }
 
 button{
@@ -71,6 +74,8 @@ button{
     padding-right: 0px;
     
     box-shadow: var(--sombra);
+
+    color: white;
 }
 
 button:hover {
