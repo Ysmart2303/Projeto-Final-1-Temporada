@@ -37,6 +37,9 @@ function abrirSerie(numero) {
     document.getElementById("voltarSeries").style.display = "block";
     document.querySelector(".periodos1").style.display = "block";
     localStorage.setItem("serieAtual_" + cursoAtual.usuario, numero);
+
+    let tm = document.getElementById("textoMudante");
+    tm.innerText = "Período";
 }
 
 function abrirMes(numero) {
@@ -63,6 +66,7 @@ function voltar() {
     document.getElementById("conteudoBi").innerHTML = "";
     document.getElementById("voltarSeries").style.display = "block";
     document.getElementById("serieAtual").innerText = serieAtual + " Serie";
+
 }
 
 function voltarSeries() {
@@ -73,6 +77,9 @@ function voltarSeries() {
     document.getElementById("listaBi").style.display = "flex";
     serieAtual = 0;
     document.getElementById("serieAtual").style.display = "none";
+    
+    let tm = document.getElementById("textoMudante");
+    tm.innerText = "Série";
 }
 
 function textoTipo(tipo) {
@@ -284,3 +291,7 @@ function salvarEmail() {
 }
 
 listarRegistros();
+
+function falarnome() {
+    alert("Sistema Integrado de Gestao Academica");
+}

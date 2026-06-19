@@ -13,23 +13,24 @@
 
             <img src="/img/mcvm-logo.png" alt="logo" id="logo" style="width: 100px; height: 100px;">
 
-
-            <div class="cursoInfo">
-                <h2 id="tituloCurso"></h2>
-                <p id="nomeProfessor"></p>
-                <h2 id="serieAtual" style="display:none;"></h2>
-            </div>
-
+            <h1 id="siga"><div onclick="falarnome()">S.I.G.A. MCVM</div></h1>
+            
             <button id="botaoVoltarIndex" type="button" onclick="window.location.href='/html/index.html'">Voltar</button>
         
         </header>
 
-
+        
         <main>
+
+            <div class="cursoInfo">
+                <h2 id="tituloCurso"></h2>
+                <h2 id="serieAtual" style="display:none;"></h2>
+                <p id="nomeProfessor"></p>
+            </div>
 
             <section class="SeriesSec">
 
-                <h1 style="animation: subirMes 2s ease;">Série</h1>
+                <h1 style="animation: subirMes 2s ease;" id="textoMudante">Série</h1>
 
                 <section id="listaSe">
 
@@ -49,7 +50,7 @@
 
                 <section class="periodos1">
 
-                    <h1 style="animation: subirMes 2s ease;">Período 🗓️</h1>
+                    <!-- <h1 style="animation: subirMes 2s ease;">Período 🗓️</h1> -->
 
                     <section id="listaBi">
 
